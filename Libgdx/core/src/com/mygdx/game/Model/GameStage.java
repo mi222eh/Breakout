@@ -1,6 +1,6 @@
 package com.mygdx.game.Model;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -19,17 +19,21 @@ public class GameStage {
     Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
     Ball ball;
     Player player;
+    float wallWidth;
 
     public GameStage(){
         playerPosY = 100;
+        wallWidth = 10;
         Box2D.init();
         world = new World(new Vector2(0,0), false);
-        ball = new Ball(GameStage.CreateCircle(15f, world));
-        player = new Player(GameStage.CreatePlayer(35f, 15f, world));
+        ball = new Ball(GameStage.CreateCircle(10f, world));
+        player = new Player(GameStage.CreatePlayer(30f, 10f, world));
+
+        GameStage.createWalls(world, wallWidth);
     }
 
     public void init(){
-
+        ball.ballBody.applyForceToCenter(1000000, 1000000, false);
     }
 
     public void update(float time){
@@ -37,7 +41,6 @@ public class GameStage {
         for (int i = 0; i < 3; i++){
             world.step(time/subSteps, 400, 400);
         }
-
     }
 
     public void debugRender(OrthographicCamera camera){
@@ -45,7 +48,16 @@ public class GameStage {
     }
 
     public void setPlayerPosition (float position){
-        player.playerBody.setTransform(new Vector2(position, 1080 - Gdx.input.getY()), 0);
+        System.out.println(position);
+        if (position >= BreakoutSettings.SCREEN_WIDTH - wallWidth - 30){
+            player.playerBody.setTransform(new Vector2(BreakoutSettings.SCREEN_WIDTH - wallWidth - 30, playerPosY), 0);
+        }
+        else if(position <= wallWidth + 30){
+            player.playerBody.setTransform(new Vector2(wallWidth + 30, playerPosY), 0);
+        }
+        else{
+            player.playerBody.setTransform(new Vector2(position, playerPosY), 0);
+        }
     }
 
 
@@ -71,7 +83,7 @@ public class GameStage {
         // Create a fixture definition to apply our shape to
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
-        fixtureDef.density = 1f;
+        fixtureDef.density = 0f;
         fixtureDef.friction = 0f;
         fixtureDef.restitution = 1f;
 
@@ -116,9 +128,57 @@ public class GameStage {
         return body;
     }
 
-    public static void createWalls(World world){
-        BodyDef bodyDef = new BodyDef();
+    public static void createWalls(World world, float wallWidth){
 
+        //LEFT WALL
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(wallWidth / 2, BreakoutSettings.SCREEN_HEIGHT / 2);
+
+        Body leftWall = world.createBody(bodyDef);
+
+        PolygonShape wall = new PolygonShape();
+        wall.setAsBox(wallWidth / 2, BreakoutSettings.SCREEN_HEIGHT);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = wall;
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0f;
+        fixtureDef.restitution = 0f;
+
+        Fixture fixture = leftWall.createFixture(fixtureDef);
+
+        //UPPER WALL
+        bodyDef.position.set(BreakoutSettings.SCREEN_WIDTH / 2, BreakoutSettings.SCREEN_HEIGHT - (wallWidth / 2));
+
+        Body upperWall = world.createBody(bodyDef);
+
+        wall.setAsBox(BreakoutSettings.SCREEN_WIDTH, wallWidth / 2);
+
+        FixtureDef fixtureDef2 = new FixtureDef();
+        fixtureDef2.shape = wall;
+        fixtureDef2.density = 1f;
+        fixtureDef2.friction = 0f;
+        fixtureDef2.restitution = 0;
+
+        Fixture fixture2 = upperWall.createFixture(fixtureDef2);
+
+        //RIGHT WALL
+        bodyDef.position.set(BreakoutSettings.SCREEN_WIDTH - (wallWidth / 2), BreakoutSettings.SCREEN_HEIGHT / 2);
+
+        Body rightWall = world.createBody(bodyDef);
+
+        wall.setAsBox(wallWidth / 2, BreakoutSettings.SCREEN_HEIGHT);
+
+        FixtureDef fixtureDef3 = new FixtureDef();
+        fixtureDef3.shape = wall;
+        fixtureDef3.density = 1f;
+        fixtureDef3.friction = 0f;
+        fixtureDef3.restitution = 0f;
+
+        Fixture fixture3 = rightWall.createFixture(fixtureDef3);
+
+        wall.dispose();
 
     }
 }
