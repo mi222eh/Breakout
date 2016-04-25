@@ -11,5 +11,21 @@ public class BreakoutSettings {
     public static float MIN_TIME = 0.25f;
     
     public static String TMX_MAPS_LOCATION = "maps/";
+    
+    //CATEGORY BITS
+    public static final short PLAYER = 0x0001;
+    public static final short BALL = 0x0002;
+    public static final short BRICK = 0x0004;
+    public static final short POWERUP = 0x0008;
+    public static final short WALL = 0x00016;
+    public static final short BOTTOM_SENSOR = 0x0032;
+    
+    //MASK BITS
+    public static final short MASK_PLAYER = PLAYER | BALL | POWERUP;
+    public static final short MASK_BALL = PLAYER | BRICK | WALL | BOTTOM_SENSOR;
+    public static final short MASK_BRICK = BRICK | BALL;
+    public static final short MASK_POWERUP = PLAYER | BOTTOM_SENSOR | WALL;
+    public static final short MASK_WALL = WALL | BALL | POWERUP;
+    public static final short MASK_BOTTOM_SENSOR = BALL | POWERUP;
 
 }

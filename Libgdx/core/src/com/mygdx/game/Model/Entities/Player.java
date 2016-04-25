@@ -10,7 +10,8 @@ public class Player {
     public static float PLAYER_HEIGHT = 8f;
     public static float PLAYER_POSITION_Y = 75f;
     public Body playerBody;
-    public Player(Body body) {
-        playerBody = body;
+    
+    public void setBody(Body body){
+    	playerBody = body;
     }
 }
