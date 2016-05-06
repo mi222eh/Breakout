@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
@@ -18,12 +19,13 @@ public class GameScreen implements Screen{
 
     public GameScreen(BreakoutGame breakoutGame) {
         this.game = breakoutGame;
+        gameStage = new GameStage();
     }
+    
 
     @Override
     public void show() {
-        gameStage = new GameStage();
-        gameStage.init();
+    	gameStage.init();
     }
 
     @Override
@@ -35,6 +37,13 @@ public class GameScreen implements Screen{
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         mousePos = game.camera.unproject(mousePos);
         gameStage.setPlayerPosition(mousePos.x);
+        
+        if(Gdx.input.isKeyJustPressed(Keys.A)){
+        	gameStage.makePlayerBigger();
+        }
+        if(Gdx.input.isKeyJustPressed(Keys.D)){
+        	gameStage.MakePlayerSmaller();
+        }
 
         gameStage.debugRender(game.camera);
 

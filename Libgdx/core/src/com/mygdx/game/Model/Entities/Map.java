@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.mygdx.game.Model.Entities.Brick.BrickType;
 import com.mygdx.game.Settings.BreakoutSettings;
 import com.mygdx.game.interfaces.MapListener;
 
@@ -28,7 +29,6 @@ public class Map {
 	public Map(){
 		bricks = new Array<Brick>();
 		inactiveBricks = new Pool<Brick>() {
-
 			@Override
 			protected Brick newObject() {
 				numberofBricksTotal++;
@@ -36,12 +36,21 @@ public class Map {
 			}
 		};
 	}
+	public void update(){
+		for (int i = 0; i < bricks.size; i++) {
+			if(!bricks.get(i).isAlive()){
+				mapListener.destroyBrick(bricks.get(i).brickBody);
+				inactiveBricks.free(bricks.get(i));
+				bricks.removeIndex(i);
+			}
+		}
+	}
 	
 	public void addMapListener(MapListener listener){
 		mapListener = listener;
 	}
 	
-	private void reset(){
+	public void reset(){
 		inactiveBricks.freeAll(bricks);
 		bricks.clear();
 	}
@@ -58,14 +67,45 @@ public class Map {
 			MapObject object = objects.get(i);
 			float x = object.getProperties().get("x", float.class);
 			float y = object.getProperties().get("y", float.class);
-			mapListener.createBrick(new Vector2(x, y));
+			int type = Integer.parseInt(object.getProperties().get("type", String.class));
+			mapListener.createBrick(new Vector2(x, y), type);
 		}
 	}
 	
-	public void addBrick(Fixture fixture){
+	public void addBrick(Fixture fixture, int type){
 		Brick brick = inactiveBricks.obtain();
 		fixture.setUserData(brick);
 		brick.setBody(fixture.getBody());
 		bricks.add(brick);
+		switch (type) {
+		case BreakoutSettings.BRICK_NORMAL1:
+			brick.setType(BrickType.normal1);;
+			break;
+		case BreakoutSettings.BRICK_NORMAL2:
+			brick.setType(BrickType.normal2);;
+			break;
+		case BreakoutSettings.BRICK_NORMAL3:
+			brick.setType(BrickType.normal3);;
+			break;
+		case BreakoutSettings.BRICK_STEEL1:
+			brick.setType(BrickType.steel1);;
+			break;
+		case BreakoutSettings.BRICK_STEEL2:
+			brick.setType(BrickType.steel2);;
+			break;
+		case BreakoutSettings.BRICK_STEEL3:
+			brick.setType(BrickType.steel3);;
+			break;
+		case BreakoutSettings.BRICK_INVISIBLE:
+			brick.setType(BrickType.invisible);;
+			break;
+		case BreakoutSettings.BRICK_INVURNERABLE:
+			brick.setType(BrickType.invurnerable);;
+			break;
+
+		default:
+			brick.setType(BrickType.undefined);
+			break;
 		}
+	}
 }

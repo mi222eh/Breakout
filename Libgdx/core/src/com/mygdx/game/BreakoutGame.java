@@ -22,7 +22,6 @@ public class BreakoutGame extends Game {
         batch.setProjectionMatrix(camera.combined);
 
         camera.update();
-
         setScreen(screenHandler.getScreen(ScreenType.GameScreen,this));
 	}
 }

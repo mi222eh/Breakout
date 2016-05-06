@@ -8,19 +8,16 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Model.Entities.Ball;
 import com.mygdx.game.Model.Entities.Brick;
 import com.mygdx.game.Model.Entities.Map;
 import com.mygdx.game.Model.Entities.Player;
+import com.mygdx.game.Model.Entities.Player.PlayerWidth;
 import com.mygdx.game.Settings.BreakoutSettings;
 import com.mygdx.game.interfaces.MapListener;
 
@@ -29,24 +26,24 @@ import com.mygdx.game.interfaces.MapListener;
  */
 public class GameStage implements MapListener{
 
-    World world;
-    Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
-    Ball ball;
-    Player player;
-    Map map;
+	public boolean started;
+    public World world;
+    public Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
+    public Ball ball;
+    public Player player;
+    public Map map;
 
     public GameStage(){
-    	
-    	//World
-        world = new World(new Vector2(0,0), false);
-        world.setContactListener(new BreakoutContactListener());
-        
-        
-        //MAP
+    	started = false;
     	map = new Map();
     	map.addMapListener(this);
-    	map.loadMapFromTmxFile(1);
+
+       	//World
+        world = new World(new Vector2(0,0), false);
+        world.setContactListener(new BreakoutContactListener());
+
         Box2D.init();
+        
         
         //Ball
         ball = new Ball();
@@ -54,10 +51,23 @@ public class GameStage implements MapListener{
         ballfixture.setUserData(ball);
         ball.setBody(ballfixture.getBody());
         
+        
         //Player
         player = new Player();
-        Fixture playerFixture = GameStage.CreatePlayer(Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT, world);
-        player.setBody(playerFixture.getBody());
+        
+        Fixture fixtureSmallest = GameStage.CreatePlayer(PlayerWidth.Smallest.getVal(), Player.PLAYER_HEIGHT, world);
+        fixtureSmallest.setUserData(player);
+        Fixture fixtureSmall = GameStage.CreatePlayer(PlayerWidth.Small.getVal(), Player.PLAYER_HEIGHT, world);
+        fixtureSmall.setUserData(player);
+        Fixture fixtureNormal = GameStage.CreatePlayer(PlayerWidth.Normal.getVal(), Player.PLAYER_HEIGHT, world);
+        fixtureNormal.setUserData(player);
+        Fixture fixtureLarge = GameStage.CreatePlayer(PlayerWidth.Large.getVal(), Player.PLAYER_HEIGHT, world);
+        fixtureLarge.setUserData(player);
+        Fixture fixtureLargest = GameStage.CreatePlayer(PlayerWidth.Largest.getVal(), Player.PLAYER_HEIGHT, world);
+        fixtureLargest.setUserData(player);
+        player.setBodies(fixtureSmallest.getBody(), fixtureSmall.getBody(), fixtureNormal.getBody(), fixtureLarge.getBody(), fixtureLargest.getBody());
+        
+        player.init();
         
         
         //GameStage.createBrick(world, new Vector2(500, 500));
@@ -66,14 +76,34 @@ public class GameStage implements MapListener{
     }
 
     public void init(){
-        ball.ballBody.applyForceToCenter(100000, 100000, false);
+    	started = false;
+    	map.reset();
+    	map.loadMapFromTmxFile(1);
+    }
+    
+    public void start(){
+    	started = true;
+    	ball.ballBody.setLinearVelocity(200, 200);
+    }
+    
+    public void makePlayerBigger(){
+    	player.makeBigger();
+    }
+    
+    public void MakePlayerSmaller(){
+    	player.makeSmaller();
     }
 
     public void update(float time){
+    	if(!started){
+    		float playerX = player.getActiveBody().getPosition().x;
+    		ball.ballBody.setTransform(playerX, Ball.BALL_START_Y, 0);
+    	}
         int subSteps = 3;
         for (int i = 0; i < subSteps; i++){
             world.step(time/subSteps, 400, 400);
         }
+        map.update();
     }
 
     public void debugRender(OrthographicCamera camera){
@@ -81,15 +111,7 @@ public class GameStage implements MapListener{
     }
 
     public void setPlayerPosition (float position){
-        if (position >= BreakoutSettings.SCREEN_WIDTH - Map.WALL_WIDTH - 30){
-            player.playerBody.setTransform(new Vector2(BreakoutSettings.SCREEN_WIDTH - Map.WALL_WIDTH - 30, Player.PLAYER_POSITION_Y), 0);
-        }
-        else if(position <= Map.WALL_WIDTH + 30){
-            player.playerBody.setTransform(new Vector2(Map.WALL_WIDTH + 30, Player.PLAYER_POSITION_Y), 0);
-        }
-        else{
-            player.playerBody.setTransform(new Vector2(position, Player.PLAYER_POSITION_Y), 0);
-        }
+        player.movePlayer(position);
     }
 
     public static Fixture CreateCircle(float radius, World world){
@@ -98,7 +120,7 @@ public class GameStage implements MapListener{
 	        // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
 	        bodyDef.type = BodyDef.BodyType.DynamicBody;
 	        // Set our body's starting position in the world
-	        bodyDef.position.set(100, 300);
+	        bodyDef.position.set(100, 400);
 	
 	        // Create our body in the world using our body definition
 	        Body body = world.createBody(bodyDef);
@@ -287,8 +309,13 @@ public class GameStage implements MapListener{
     }
 
 	@Override
-	public void createBrick(Vector2 position) {
+	public void createBrick(Vector2 position, int type) {
 		Fixture brickFixture = GameStage.createBrick(world, position);
-		map.addBrick(brickFixture);
+		map.addBrick(brickFixture, type);
+	}
+
+	@Override
+	public void destroyBrick(Body brickBody) {
+		world.destroyBody(brickBody);
 	}
 }

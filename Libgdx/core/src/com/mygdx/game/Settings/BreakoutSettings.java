@@ -27,5 +27,14 @@ public class BreakoutSettings {
     public static final short MASK_POWERUP = PLAYER | BOTTOM_SENSOR | WALL;
     public static final short MASK_WALL = WALL | BALL | POWERUP;
     public static final short MASK_BOTTOM_SENSOR = BALL | POWERUP;
-
+    
+    //TYPE DEFINITIONS
+    public static final int BRICK_NORMAL1 = 1;
+    public static final int BRICK_NORMAL2 = 2;
+    public static final int BRICK_NORMAL3 = 3;
+    public static final int BRICK_STEEL1 = 4;
+    public static final int BRICK_STEEL2 = 5;
+    public static final int BRICK_STEEL3 = 6;
+    public static final int BRICK_INVISIBLE = 7;
+    public static final int BRICK_INVURNERABLE = 0;
 }
