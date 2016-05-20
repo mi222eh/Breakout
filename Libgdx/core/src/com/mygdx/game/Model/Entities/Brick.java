@@ -20,7 +20,7 @@ public class Brick implements Poolable{
 	}
 	
 	private boolean alive;
-	private BrickType brickType;
+	public BrickType brickType;
 	
 	
     public static float BRICK_WIDTH = 45;
@@ -41,6 +41,7 @@ public class Brick implements Poolable{
 		brickType = type;
 	}
 	public void hit(){
+		System.out.println("IN I METODEN");
 		switch (brickType) {
 		case invisible:
 			brickType = BrickType.steel3;

@@ -9,10 +9,10 @@ import com.mygdx.game.Settings.BreakoutSettings;
 public class Player {
 	public enum PlayerWidth{
 		Smallest(15),
-		Small(25),
-		Normal(45),
-		Large(60), 
-		Largest(80);
+		Small(30),
+		Normal(50),
+		Large(70), 
+		Largest(100);
 		private int val;
 		private PlayerWidth(int val){
 			this.val = val;

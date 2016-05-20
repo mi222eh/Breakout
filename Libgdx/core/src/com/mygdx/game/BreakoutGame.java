@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Handlers.ScreenHandler;
@@ -14,6 +15,7 @@ public class BreakoutGame extends Game {
 	
 	@Override
 	public void create () {
+		Gdx.gl20.glClearColor(0.1f, 0.1f, 0.1f, 0);
 		screenHandler = new ScreenHandler();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, BreakoutSettings.SCREEN_WIDTH, BreakoutSettings.SCREEN_HEIGHT);
@@ -22,6 +24,6 @@ public class BreakoutGame extends Game {
         batch.setProjectionMatrix(camera.combined);
 
         camera.update();
-        setScreen(screenHandler.getScreen(ScreenType.GameScreen,this));
+        setScreen(screenHandler.getScreen(ScreenType.MenuScreen,this));
 	}
 }

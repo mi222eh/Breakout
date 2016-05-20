@@ -19,13 +19,13 @@ import com.mygdx.game.interfaces.MapListener;
 
 public class Map {
 	
-	public static int WALL_WIDTH = 16;
+	public static int WALL_WIDTH = 32;
 	
 	MapListener mapListener;
 	
 	public int numberofBricksTotal = 0;
-	Array<Brick> bricks;
-	Pool<Brick> inactiveBricks;
+	public Array<Brick> bricks;
+	private Pool<Brick> inactiveBricks;
 	public Map(){
 		bricks = new Array<Brick>();
 		inactiveBricks = new Pool<Brick>() {
@@ -39,6 +39,7 @@ public class Map {
 	public void update(){
 		for (int i = 0; i < bricks.size; i++) {
 			if(!bricks.get(i).isAlive()){
+				System.out.println("DÖD");
 				mapListener.destroyBrick(bricks.get(i).brickBody);
 				inactiveBricks.free(bricks.get(i));
 				bricks.removeIndex(i);

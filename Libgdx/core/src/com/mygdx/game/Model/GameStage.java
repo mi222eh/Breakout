@@ -13,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Model.Entities.Ball;
 import com.mygdx.game.Model.Entities.Brick;
 import com.mygdx.game.Model.Entities.Map;
@@ -29,9 +31,10 @@ public class GameStage implements MapListener{
 	public boolean started;
     public World world;
     public Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
-    public Ball ball;
     public Player player;
     public Map map;
+    public Array<Ball> Balls;
+    private Pool<Ball> InactiveBalls;
 
     public GameStage(){
     	started = false;
@@ -46,10 +49,12 @@ public class GameStage implements MapListener{
         
         
         //Ball
-        ball = new Ball();
+        Balls = new Array<Ball>();
+        Ball ball = new Ball();
         Fixture ballfixture = GameStage.CreateCircle(Ball.BALL_RADIUS, world);
         ballfixture.setUserData(ball);
         ball.setBody(ballfixture.getBody());
+        Balls.add(ball);
         
         
         //Player
@@ -77,13 +82,16 @@ public class GameStage implements MapListener{
 
     public void init(){
     	started = false;
-    	map.reset();
-    	map.loadMapFromTmxFile(1);
     }
     
     public void start(){
-    	started = true;
-    	ball.ballBody.setLinearVelocity(200, 200);
+    	if(!started){
+        	started = true;
+        	for (int i = 0; i < Balls.size; i++) {
+				Ball ball = Balls.get(i);
+				ball.init(ball.ballBody.getPosition(), new Vector2(200, 200));
+			}
+    	}
     }
     
     public void makePlayerBigger(){
@@ -93,11 +101,14 @@ public class GameStage implements MapListener{
     public void MakePlayerSmaller(){
     	player.makeSmaller();
     }
-
+ 
     public void update(float time){
     	if(!started){
     		float playerX = player.getActiveBody().getPosition().x;
-    		ball.ballBody.setTransform(playerX, Ball.BALL_START_Y, 0);
+    		for (int i = 0; i < Balls.size; i++) {
+				Ball ball = Balls.get(i);
+				ball.ballBody.setTransform(playerX, Ball.BALL_START_Y, 0);
+			}
     	}
         int subSteps = 3;
         for (int i = 0; i < subSteps; i++){
