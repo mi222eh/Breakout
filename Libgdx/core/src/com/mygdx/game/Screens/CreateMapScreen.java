@@ -1,14 +1,21 @@
 package com.mygdx.game.Screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.BreakoutGame;
+import com.mygdx.game.Model.MapCreateModel;
 
 public class CreateMapScreen implements Screen{
 	
-	BreakoutGame Game;
+	private BreakoutGame Game;
+	
+	public MapCreateModel createModel;
 	
 	public CreateMapScreen(BreakoutGame game){
 		Game = game;
+		createModel = new MapCreateModel();
+		
 	}
 
 	@Override
@@ -19,7 +26,8 @@ public class CreateMapScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		
 	}
 

@@ -12,14 +12,17 @@ public class Ball implements Poolable{
     public static float BALL_RADIUS = 8f;
     public static float BALL_START_Y = 95;
     public Body ballBody;
+    public boolean alive;
     
 	public void setBody(Body body) {
 		ballBody = body;
 		ballBody.setActive(false);
+		alive = false;
 	}
 
 	@Override
 	public void reset() {
+		alive = false;
 		ballBody.setActive(false);
 		ballBody.setLinearVelocity(0,0);
 	}
@@ -28,5 +31,9 @@ public class Ball implements Poolable{
 		ballBody.setTransform(position, 0);
 		ballBody.setLinearVelocity(speed);
 		ballBody.setActive(true);
+		alive = true;
+	}
+	public void destroy(){
+		alive = false;
 	}
 }

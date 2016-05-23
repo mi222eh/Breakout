@@ -15,7 +15,7 @@ public class BreakoutGame extends Game {
 	
 	@Override
 	public void create () {
-		Gdx.gl20.glClearColor(0.1f, 0.1f, 0.1f, 0);
+		Gdx.gl20.glClearColor(1f, 1f, 1f, 0);
 		screenHandler = new ScreenHandler();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, BreakoutSettings.SCREEN_WIDTH, BreakoutSettings.SCREEN_HEIGHT);

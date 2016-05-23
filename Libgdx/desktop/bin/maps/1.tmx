@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="24" tilewidth="32" tileheight="30" nextobjectid="10">
+ <objectgroup name="bricks">
+  <object id="1" x="161.5" y="181.5" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="2" x="206.5" y="181.5" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="3" x="251.5" y="181.5" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="4" x="375.5" y="184.5" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="5" x="452.5" y="233.5" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="4"/>
+   </properties>
+  </object>
+  <object id="6" x="526.5" y="192.5" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="7" x="673.5" y="180.5" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="8" x="816.5" y="230.5" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="9" x="625.5" y="282.5" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
