@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Handlers.ScreenHandler;
 import com.mygdx.game.Handlers.ScreenHandler.ScreenType;
+import com.mygdx.game.Render.MapTextures;
+import com.mygdx.game.Render.MenuStyle;
+import com.mygdx.game.Render.MenuTextures;
 import com.mygdx.game.Settings.BreakoutSettings;
 
 public class BreakoutGame extends Game {
@@ -15,6 +18,11 @@ public class BreakoutGame extends Game {
 	
 	@Override
 	public void create () {
+		
+		MapTextures.loadTextures();
+		MenuStyle.loadStyle();
+		MenuTextures.loadTextures();
+		
 		Gdx.gl20.glClearColor(1f, 1f, 1f, 0);
 		screenHandler = new ScreenHandler();
         camera = new OrthographicCamera();

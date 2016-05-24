@@ -1,5 +1,1 @@
-include ':ios'
-include ':android'
-include ':core'
-include ':desktop'
-include ':html'
+include 'desktop', 'android', 'ios', 'html', 'core'

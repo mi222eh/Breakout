@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Breakout-html</name>
-	<comment>Project Breakout-html created by Buildship.</comment>
+	<name>my-gdx-gameBreakout-html</name>
+	<comment>Project my-gdx-gameBreakout-html created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -32,7 +32,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1464048560286</id>
+			<id>1464081141438</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -41,7 +41,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1464048560293</id>
+			<id>1464081141446</id>
 			<name></name>
 			<type>26</type>
 			<matcher>

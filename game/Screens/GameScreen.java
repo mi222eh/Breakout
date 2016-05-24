@@ -6,7 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
-import com.mgdx.game.Render.MapRender;
+import com.mygdx.game.Render.MapRender;
 import com.mygdx.game.BreakoutGame;
 import com.mygdx.game.Model.GameStage;
 import com.mygdx.game.Settings.BreakoutSettings;

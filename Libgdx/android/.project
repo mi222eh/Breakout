@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Breakout-android</name>
-	<comment>Project Breakout-android created by Buildship.</comment>
+	<name>my-gdx-gameBreakout-android</name>
+	<comment>Project my-gdx-gameBreakout-android created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -32,13 +32,13 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1464048560000</id>
+			<id>1464081139391</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -47,7 +47,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1464048560015</id>
+			<id>1464081139406</id>
 			<name></name>
 			<type>26</type>
 			<matcher>

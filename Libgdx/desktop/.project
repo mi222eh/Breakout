@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Breakout-desktop</name>
-	<comment>Project Breakout-desktop created by Buildship.</comment>
+	<name>my-gdx-gameBreakout-desktop</name>
+	<comment>Project my-gdx-gameBreakout-desktop created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -29,7 +29,7 @@
 	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1464048560218</id>
+			<id>1464081140975</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -38,7 +38,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1464048560226</id>
+			<id>1464081140980</id>
 			<name></name>
 			<type>26</type>
 			<matcher>

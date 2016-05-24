@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.BreakoutGame;
 import com.mygdx.game.Handlers.ScreenHandler.ScreenType;
+import com.mygdx.game.Render.MenuStyle;
 import com.mygdx.game.Settings.BreakoutSettings;
 
 public class MainMenuScreen implements Screen{
@@ -44,20 +45,7 @@ public class MainMenuScreen implements Screen{
 		isInLevelSelect = false;
 		Game = game;
 		
-		System.out.println(Gdx.files.internal("fonts/GameFont.fnt").file().getAbsolutePath());
-		font = new BitmapFont(Gdx.files.internal("fonts/GameFont.fnt"));
-		
-		buttonUP = new Texture("skin/ButtonUP.png");
-		buttonDOWN = new Texture("skin/ButtonDOWN.png");
-		buttonHOVER = new Texture("skin/ButtonHOVER.png");
-		
-		style = new TextButtonStyle();
-		style.up = new TextureRegionDrawable(new TextureRegion(buttonUP));
-		style.over = new TextureRegionDrawable(new TextureRegion(buttonHOVER)); 
-		style.down = new TextureRegionDrawable(new TextureRegion(buttonDOWN)); 
-		style.pressedOffsetX = 1;
-		style.pressedOffsetY = -1;
-		style.font = font;
+		style = MenuStyle.style;
 		
 		generateMainMenuStage();
 		generateLevelSelectStage();

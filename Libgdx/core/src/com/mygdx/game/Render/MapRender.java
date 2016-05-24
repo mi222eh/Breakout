@@ -1,6 +1,5 @@
 package com.mygdx.game.Render;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -24,10 +23,8 @@ public class MapRender {
 		PlayerRender = new PlayerRender();
 		
 		//ALT INIT BEGIN
-		WallSide = new Sprite(new Texture("Textures/WallSide.png"));
-		WallTop = new Sprite(new Texture("Textures/WallTop.png"));
-		WallSide.setSize(Map.WALL_WIDTH, BreakoutSettings.SCREEN_HEIGHT);
-		WallTop.setSize(BreakoutSettings.SCREEN_WIDTH, Map.WALL_WIDTH);
+		WallSide = MapTextures.WallSide;
+		WallTop = MapTextures.WallTop;
 		
 		BallRender.init();
 		PlayerRender.init();
