@@ -45,7 +45,11 @@ public class LevelCreatorRender {
 		renderWalls(batch);
 		renderMenu(batch);
 		renderMenuEffects(batch);
+		renderSelectedEffects(batch);
 		}
+	private void renderSelectedEffects(SpriteBatch batch){
+		
+	}
 	private void renderMenuEffects(SpriteBatch batch){
 		if(menu.Normal1.isWithinButton(mousePos)){
 			renderHover(batch, menu.Normal1);

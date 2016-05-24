@@ -64,7 +64,7 @@ public class MainMenuScreen implements Screen{
 	}
 	
 	private void generateLevelSelectStage(){
-		levelSelectStage = new Stage(new ScreenViewport(Game.camera), Game.batch);
+		levelSelectStage = new Stage(Game.viewport, Game.batch);
 		Table table = new Table();
 		table.setWidth(BreakoutSettings.SCREEN_WIDTH);
 		table.setHeight(BreakoutSettings.SCREEN_HEIGHT);
@@ -113,7 +113,7 @@ public class MainMenuScreen implements Screen{
 	
 	private void generateMainMenuStage(){
 
-		mainMenuStage = new Stage(new ScreenViewport(Game.camera), Game.batch);
+		mainMenuStage = new Stage(Game.viewport, Game.batch);
 		levelButton = new TextButton("Start", style);
 		
 		levelButton.addListener(new ClickListener(){
@@ -185,6 +185,8 @@ public class MainMenuScreen implements Screen{
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Game.camera.update();
+		Game.batch.setProjectionMatrix(Game.camera.combined);
 		if(isInLevelSelect){
 			levelSelectStage.act(delta);
 			levelSelectStage.draw();
