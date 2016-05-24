@@ -44,8 +44,8 @@ public class MainMenuScreen implements Screen{
 		isInLevelSelect = false;
 		Game = game;
 		
-		System.out.println(Gdx.files.internal("fonts/gameFont.fnt").file().getAbsolutePath());
-		font = new BitmapFont(Gdx.files.internal("fonts/gameFont.fnt"));
+		System.out.println(Gdx.files.internal("fonts/GameFont.fnt").file().getAbsolutePath());
+		font = new BitmapFont(Gdx.files.internal("fonts/GameFont.fnt"));
 		
 		buttonUP = new Texture("skin/ButtonUP.png");
 		buttonDOWN = new Texture("skin/ButtonDOWN.png");
