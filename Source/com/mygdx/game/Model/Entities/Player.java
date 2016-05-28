@@ -18,7 +18,7 @@ public class Player {
 			this.val = val;
 		}
 		public int getVal(){
-			return val;
+			return this.val;
 		}
 	}
 	public PlayerWidth width;
@@ -31,7 +31,7 @@ public class Player {
     private Body bodyLargest;
     
     public Player(){
-    	width = PlayerWidth.Normal;
+    	this.width = PlayerWidth.Normal;
     }
     public void setBodies(Body bodySmallest, Body bodySmall, Body bodyNormal,Body bodyLarge,Body bodyLargest){
     	this.bodySmallest = bodySmallest;
@@ -41,21 +41,21 @@ public class Player {
     	this.bodyLargest = bodyLargest;
     }
     public void init(){
-    	width = PlayerWidth.Normal;
-    	updateBodiesActive();
+    	this.width = PlayerWidth.Normal;
+    	this.updateBodiesActive();
     }
     public Body getActiveBody(){
-    	switch (width) {
+    	switch (this.width) {
 		case Smallest:
-			return bodySmallest;
+			return this.bodySmallest;
 		case Small:
-			return bodySmall;
+			return this.bodySmall;
 		case Normal:
-			return bodyNormal;
+			return this.bodyNormal;
 		case Large:
-			return bodyLarge;
+			return this.bodyLarge;
 		case Largest:
-			return bodyLargest;
+			return this.bodyLargest;
 		default:
 			return null;
 		}
@@ -63,11 +63,11 @@ public class Player {
     
     public void movePlayer(float positionX){
     	float newPosition;
-        if (positionX >= BreakoutSettings.SCREEN_WIDTH - Map.WALL_WIDTH - width.getVal()){
-        	newPosition = BreakoutSettings.SCREEN_WIDTH - Map.WALL_WIDTH - width.getVal();
+        if (positionX >= BreakoutSettings.SCREEN_WIDTH - Map.WALL_WIDTH - this.width.getVal()){
+        	newPosition = BreakoutSettings.SCREEN_WIDTH - Map.WALL_WIDTH - this.width.getVal();
         }
-        else if(positionX <= Map.WALL_WIDTH + width.getVal()){
-        	newPosition = Map.WALL_WIDTH + width.getVal();
+        else if(positionX <= Map.WALL_WIDTH + this.width.getVal()){
+        	newPosition = Map.WALL_WIDTH + this.width.getVal();
         }
         else{
             newPosition = positionX;
@@ -80,49 +80,49 @@ public class Player {
     }
     
     public void makeBigger(){
-    	switch (width){
+    	switch (this.width){
 		case Large:
-			width = PlayerWidth.Largest;
+			this.width = PlayerWidth.Largest;
 			break;
 		case Largest:
-			width = PlayerWidth.Largest;
+			this.width = PlayerWidth.Largest;
 			break;
 		case Normal:
-			width = PlayerWidth.Large;
+			this.width = PlayerWidth.Large;
 			break;
 		case Small:
-			width = PlayerWidth.Normal;
+			this.width = PlayerWidth.Normal;
 			break;
 		case Smallest:
-			width = PlayerWidth.Small;
+			this.width = PlayerWidth.Small;
 			break;
 		default:
 			break;
     	}
-    	updateBodiesActive();
+    	this.updateBodiesActive();
     }
     
     private void updateBodiesActive(){
-    	bodySmallest.setActive(false);
-    	bodySmall.setActive(false);
-    	bodyNormal.setActive(false);
-    	bodyLarge.setActive(false);
-    	bodyLargest.setActive(false);
-    	switch (width){
+    	this.bodySmallest.setActive(false);
+    	this.bodySmall.setActive(false);
+    	this.bodyNormal.setActive(false);
+    	this.bodyLarge.setActive(false);
+    	this.bodyLargest.setActive(false);
+    	switch (this.width){
 		case Large:
-			bodyLarge.setActive(true);
+			this.bodyLarge.setActive(true);
 			break;
 		case Largest:
-			bodyLargest.setActive(true);
+			this.bodyLargest.setActive(true);
 			break;
 		case Normal:
-			bodyNormal.setActive(true);
+			this.bodyNormal.setActive(true);
 			break;
 		case Small:
-			bodySmall.setActive(true);
+			this.bodySmall.setActive(true);
 			break;
 		case Smallest:
-			bodySmallest.setActive(true);
+			this.bodySmallest.setActive(true);
 			break;
 		default:
 			break;
@@ -131,25 +131,25 @@ public class Player {
     }
     
     public void makeSmaller(){
-    	switch (width){
+    	switch (this.width){
 		case Large:
-			width = PlayerWidth.Normal;
+			this.width = PlayerWidth.Normal;
 			break;
 		case Largest:
-			width = PlayerWidth.Large;
+			this.width = PlayerWidth.Large;
 			break;
 		case Normal:
-			width = PlayerWidth.Small;
+			this.width = PlayerWidth.Small;
 			break;
 		case Small:
-			width = PlayerWidth.Smallest;
+			this.width = PlayerWidth.Smallest;
 			break;
 		case Smallest:
-			width = PlayerWidth.Smallest;
+			this.width = PlayerWidth.Smallest;
 			break;
 		default:
 			break;
     	}
-    	updateBodiesActive();
+    	this.updateBodiesActive();
     }
 }

@@ -13,10 +13,10 @@ public class MenuItem {
 	}
 	
 	public boolean isWithinButton(Vector2 mousePosition){
-		float fromX = position.x - (MapCreateModel.ItemMenuWidth / 2);
-		float toX = position.x + (MapCreateModel.ItemMenuWidth / 2);
-		float fromY = position.y - (MapCreateModel.ItemMenuHeight / 2);
-		float toY = position.y + (MapCreateModel.ItemMenuHeight / 2);
+		float fromX = this.position.x - (MapCreateModel.ItemMenuWidth / 2);
+		float toX = this.position.x + (MapCreateModel.ItemMenuWidth / 2);
+		float fromY = this.position.y - (MapCreateModel.ItemMenuHeight / 2);
+		float toY = this.position.y + (MapCreateModel.ItemMenuHeight / 2);
 		
 		return (mousePosition.x >= fromX && mousePosition.x <= toX && mousePosition.y >= fromY && mousePosition.y <= toY);
 	}

@@ -10,19 +10,19 @@ public class PlayerRender {
 	Sprite PlayerTexture;
 	Player Player;
 	public void setPlayer(Player player){
-		Player = player;
+		this.Player = player;
 	}
 	
 	public void init(){
-		PlayerTexture = new Sprite(new Texture("Textures/Player.png"));
+		this.PlayerTexture = new Sprite(new Texture("Textures/Player.png"));
 	}
 	
 	public void render(SpriteBatch batch){
-		PlayerTexture.setSize(Player.width.getVal() * 2, com.mygdx.game.Model.Entities.Player.PLAYER_HEIGHT * 2);
-		Vector2 position = Player.getActiveBody().getPosition();
-		float x = position.x - ((Player.width.getVal() * 2) / 2);
+		this.PlayerTexture.setSize(this.Player.width.getVal() * 2, com.mygdx.game.Model.Entities.Player.PLAYER_HEIGHT * 2);
+		Vector2 position = this.Player.getActiveBody().getPosition();
+		float x = position.x - ((this.Player.width.getVal() * 2) / 2);
 		float y = position.y - ((com.mygdx.game.Model.Entities.Player.PLAYER_HEIGHT * 2) / 2);
-		PlayerTexture.setPosition(x, y);
-		PlayerTexture.draw(batch);
+		this.PlayerTexture.setPosition(x, y);
+		this.PlayerTexture.draw(batch);
 	}
 }

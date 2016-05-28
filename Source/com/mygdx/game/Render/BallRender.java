@@ -12,23 +12,23 @@ public class BallRender {
 	Array<Ball> Balls;
 	
 	public void setBalls(Array<Ball> balls){
-		Balls = balls;
+		this.Balls = balls;
 	}
 	
 	public void init(){
-		BallTexture = new Sprite(new Texture("Textures/Ball.png"));
-		BallTexture.setSize(Ball.BALL_RADIUS * 2, Ball.BALL_RADIUS * 2);
+		this.BallTexture = new Sprite(new Texture("Textures/Ball.png"));
+		this.BallTexture.setSize(Ball.BALL_RADIUS * 2, Ball.BALL_RADIUS * 2);
 	}
 	
 	public void render(SpriteBatch batch){
-		for (int i = 0; i < Balls.size; i++) {
-			Ball ball = Balls.get(i);
+		for (int i = 0; i < this.Balls.size; i++) {
+			Ball ball = this.Balls.get(i);
 			Vector2 position = ball.ballBody.getPosition();
 			float x = position.x - (Ball.BALL_RADIUS * 2 / 2);
 			float y = position.y - (Ball.BALL_RADIUS * 2 / 2);
 			
-			BallTexture.setPosition(x, y);
-			BallTexture.draw(batch);
+			this.BallTexture.setPosition(x, y);
+			this.BallTexture.draw(batch);
 		}
 	}
 }

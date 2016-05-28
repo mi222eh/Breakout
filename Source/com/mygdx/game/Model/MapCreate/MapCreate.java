@@ -1,11 +1,11 @@
 package com.mygdx.game.Model.MapCreate;
 
-import com.badlogic.gdx.utils.Array;
+import java.util.ArrayList;
 
 public class MapCreate {
-	public Array<BrickCreate> bricks;
+	public ArrayList<BrickCreate> bricks;
 	
 	public MapCreate(){
-		bricks = new Array<BrickCreate>();
+		this.bricks = new ArrayList<BrickCreate>();
 	}
 }

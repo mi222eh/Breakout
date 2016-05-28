@@ -1,25 +1,33 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net.HttpMethods;
+import com.badlogic.gdx.Net.HttpRequest;
+import com.badlogic.gdx.Net.HttpResponse;
+import com.badlogic.gdx.Net.HttpResponseListener;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.net.HttpRequestBuilder;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.BreakoutGame;
 import com.mygdx.game.Handlers.ScreenHandler.ScreenType;
 import com.mygdx.game.Render.MenuStyle;
 import com.mygdx.game.Settings.BreakoutSettings;
 
-public class MainMenuScreen implements Screen{
+public class MainMenuScreen implements Screen, HttpResponseListener{
+	
+	private Sprite MainMenuBackground, LevelSelectBackground, OnlineBackground;
 	
 	private final int MainButtonWidth = 500;
 	private final int MainButtonHeight = 75;
@@ -31,23 +39,105 @@ public class MainMenuScreen implements Screen{
 	
 	private boolean isInMainMenu;
 	private boolean isInLevelSelect;
+	private boolean beginInLevel;
+	private boolean isInOnlineSelect;
+	
+	private HttpResponseListener httpListener;
+	private GetOnlineMapListener getOnlineMapListener;
 	
 	
-	private Stage mainMenuStage, levelSelectStage;
+	private Stage mainMenuStage, levelSelectStage, onlineSelectStage;
 	private BreakoutGame Game;
 	private TextButtonStyle style;
 	private TextButton exitButton, soundButton, levelCreateButton, levelButton;
 	
 	public MainMenuScreen(BreakoutGame game) {
-		isInMainMenu = true;
-		isInLevelSelect = false;
-		Game = game;
+		this.getOnlineMapListener = new GetOnlineMapListener();
+		this.getOnlineMapListener.menuScreen = this;
+		this.httpListener = this;
+		this.beginInLevel = false;
+		this.isInMainMenu = true;
+		this.isInLevelSelect = false;
+		this.Game = game;
 		
-		style = MenuStyle.style;
+		this.style = MenuStyle.style;
 		
-		generateMainMenuStage();
-		generateLevelSelectStage();
+		this.generateMainMenuStage();
+		this.generateLevelSelectStage();
+		this.generateOnlineSelectStage();
 		
+		this.MainMenuBackground = new Sprite(new Texture("Textures/MainMenuBackground.png"));
+		this.LevelSelectBackground = new Sprite(new Texture("Textures/LevelSelectBackGround.png"));
+		this.OnlineBackground = new Sprite(new Texture("Textures/OnlineLevelsBackground.png"));
+		
+		this.MainMenuBackground.setSize(BreakoutSettings.SCREEN_WIDTH, BreakoutSettings.SCREEN_HEIGHT);
+		this.LevelSelectBackground.setSize(BreakoutSettings.SCREEN_WIDTH, BreakoutSettings.SCREEN_HEIGHT);
+		this.OnlineBackground.setSize(BreakoutSettings.SCREEN_WIDTH, BreakoutSettings.SCREEN_HEIGHT);
+		
+		this.MainMenuBackground.setPosition(0, 0);
+		this.LevelSelectBackground.setPosition(0, 0);
+		this.OnlineBackground.setPosition(0, 0);
+	}
+	
+	private void generateOnlineSelectStage(){
+		this.onlineSelectStage = new Stage(this.Game.viewport, this.Game.batch);
+		TextButton backButton = new TextButton("Back", this.style);
+		backButton.setPosition(10, 10);
+		backButton.setWidth(this.LevelButtonWidth);
+		backButton.setHeight(this.LevelButtonHeight);
+		
+		backButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO Auto-generated method stub
+				super.clicked(event, x, y);
+				MainMenuScreen.this.setLevelSelectMenu();
+				Game.soundListener.ButtonSound();
+			}
+		});
+		this.onlineSelectStage.addActor(backButton);
+	}
+	
+	public void toGameScreenWidthJson(String mapJson){
+		this.dispose();
+		GameScreen gameScreen = (GameScreen)this.Game.screenHandler.getScreen(ScreenType.GameScreen);
+		gameScreen.init();
+		gameScreen.loadJsonMap(mapJson);;
+		this.Game.setScreen(gameScreen);
+	}
+	
+	private void generateOnlineLevelButtons(String jsonText){
+		Json json = new Json();
+		JsonValue texts = new JsonReader().parse(jsonText);
+		Table table = new Table();
+		for (int i = 0; i < texts.size; i++) {
+			String name = texts.getString(i);
+			TextButton button = this.generateOnlineLevelButton(name);
+			table.add(button).width(this.MainButtonWidth).height(this.MainButtonHeight).pad(10).center();
+			table.row();
+		}
+		ScrollPane scroll = new ScrollPane(table);
+		scroll.setWidth(BreakoutSettings.SCREEN_WIDTH - 20);
+		scroll.setHeight(BreakoutSettings.SCREEN_HEIGHT - 200);
+		scroll.setPosition(10, 200);
+		this.onlineSelectStage.addActor(scroll);
+	}
+	private TextButton generateOnlineLevelButton(String name){
+		TextButton levelButton = new TextButton(name, MenuStyle.style);
+		levelButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO Auto-generated method stub
+				super.clicked(event, x, y);
+				Json json = new Json();
+				String nameJson = json.toJson(name);
+				HttpRequestBuilder reqBuilder = new HttpRequestBuilder();
+				HttpRequest req = reqBuilder.newRequest().method(HttpMethods.GET).url(BreakoutSettings.GET_MAP_URL).content("level=" + name).build();
+				Gdx.net.sendHttpRequest(req, MainMenuScreen.this.getOnlineMapListener);
+				Game.soundListener.ButtonSound();
+			}
+		});
+		return levelButton;
 	}
 	
 	private void makeLevelListener(final int level, TextButton button){
@@ -55,16 +145,21 @@ public class MainMenuScreen implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				GameScreen gameScreen = (GameScreen)Game.screenHandler.getScreen(ScreenType.GameScreen, Game);
+				MainMenuScreen.this.dispose();
+				GameScreen gameScreen = (GameScreen)MainMenuScreen.this.Game.screenHandler.getScreen(ScreenType.GameScreen);
 				gameScreen.loadTmxMap(level);
-				Game.setScreen(gameScreen);
-				dispose();
+				MainMenuScreen.this.Game.setScreen(gameScreen);
+				Game.soundListener.ButtonSound();
 			}
 		});
 	}
 	
+	public void setToLevelScreen(){
+		this.beginInLevel = true;
+	}
+	
 	private void generateLevelSelectStage(){
-		levelSelectStage = new Stage(Game.viewport, Game.batch);
+		this.levelSelectStage = new Stage(this.Game.viewport, this.Game.batch);
 		Table table = new Table();
 		table.setWidth(BreakoutSettings.SCREEN_WIDTH);
 		table.setHeight(BreakoutSettings.SCREEN_HEIGHT);
@@ -72,83 +167,129 @@ public class MainMenuScreen implements Screen{
 		
 		for(int i = 0; i < 10; i++){
 			int level = i + 1;
-			TextButton button = new TextButton("Map " + level, style);
-			table.add(button).width(LevelButtonWidth).height(LevelButtonHeight).pad(LevelButtonPad);
+			TextButton button = new TextButton("Map " + level, this.style);
+			table.add(button).width(this.LevelButtonWidth).height(this.LevelButtonHeight).pad(this.LevelButtonPad);
 			if(i == 4){
 				table.row();
 			}
-			makeLevelListener(level, button);
+			this.makeLevelListener(level, button);
 
 		}
 		
-		TextButton backButton = new TextButton("Back", style);
+		TextButton backButton = new TextButton("Back", this.style);
 		backButton.setPosition(10, 10);
-		backButton.setWidth(LevelButtonWidth);
-		backButton.setHeight(LevelButtonHeight);
+		backButton.setWidth(this.LevelButtonWidth);
+		backButton.setHeight(this.LevelButtonHeight);
 		
 		backButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				// TODO Auto-generated method stub
 				super.clicked(event, x, y);
-				setMainMenu();
+				MainMenuScreen.this.setMainMenu();
+				Game.soundListener.ButtonSound();
 			}
 		});
+		TextButton onlineButton = new TextButton("Online", this.style);
+		onlineButton.setPosition(1000, 10);
+		onlineButton.setWidth(this.LevelButtonWidth);
+		onlineButton.setHeight(this.LevelButtonHeight);
 		
-		levelSelectStage.addActor(backButton);
-		levelSelectStage.addActor(table);
+		onlineButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO Auto-generated method stub
+				super.clicked(event, x, y);
+				MainMenuScreen.this.setOnlineSelectMenu();
+				Game.soundListener.ButtonSound();
+			}
+		});
+		this.levelSelectStage.addActor(backButton);
+		this.levelSelectStage.addActor(onlineButton);
+		this.levelSelectStage.addActor(table);
+	}
+	
+	private void setOnlineSelectMenu(){
+		this.onlineSelectStage.dispose();
+		this.generateOnlineSelectStage();
+		this.isInOnlineSelect = true;
+		this.isInMainMenu = false;
+		this.isInLevelSelect = false;
+		Gdx.input.setInputProcessor(this.onlineSelectStage);
+		
+		HttpRequestBuilder reqBuilder = new HttpRequestBuilder();
+		HttpRequest req = reqBuilder.newRequest().method(HttpMethods.GET).url(BreakoutSettings.GET_LIST_URL).build();
+		Gdx.net.sendHttpRequest(req, this.httpListener);
 	}
 	
 	private void setLevelSelectMenu(){
-		isInMainMenu = false;
-		isInLevelSelect = true;
-		Gdx.input.setInputProcessor(levelSelectStage);
+		this.isInMainMenu = false;
+		this.isInOnlineSelect = false;
+		this.isInLevelSelect = true;
+		Gdx.input.setInputProcessor(this.levelSelectStage);
+		
+
+		
 	}
 	
 	private void setMainMenu(){
-		isInMainMenu = true;
-		isInLevelSelect = false;
-		Gdx.input.setInputProcessor(mainMenuStage);
+		this.isInOnlineSelect = false;
+		this.isInMainMenu = true;
+		this.isInLevelSelect = false;
+		Gdx.input.setInputProcessor(this.mainMenuStage);
 	}
 	
 	private void generateMainMenuStage(){
 
-		mainMenuStage = new Stage(Game.viewport, Game.batch);
-		levelButton = new TextButton("Start", style);
+		this.mainMenuStage = new Stage(this.Game.viewport, this.Game.batch);
+		this.levelButton = new TextButton("Start", this.style);
 		
-		levelButton.addListener(new ClickListener(){
+		this.levelButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				// TODO Auto-generated method stub
 				super.clicked(event, x, y);
-				setLevelSelectMenu();
+				MainMenuScreen.this.setLevelSelectMenu();
+				Game.soundListener.ButtonSound();
 			}
 		});
+		this.levelCreateButton = new TextButton("Level Creator", this.style);
 		
-		
-		levelCreateButton = new TextButton("Level Creator", style);
-		
-		levelCreateButton.addListener(new ClickListener(){
+		this.levelCreateButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				// TODO Auto-generated method stub
 				super.clicked(event, x, y);
-				CreateMapScreen screen = (CreateMapScreen)Game.screenHandler.getScreen(ScreenType.CreateMapScreen, Game);
-				screen.init();
-				Game.setScreen(screen);
+				CreateMapScreen screen = (CreateMapScreen)MainMenuScreen.this.Game.screenHandler.getScreen(ScreenType.CreateMapScreen);
+				//screen.init();
+				MainMenuScreen.this.dispose();
+				MainMenuScreen.this.Game.setScreen(screen);
+				Game.soundListener.ButtonSound();
 			}
 		});
-		exitButton = new TextButton("Exit", style);
-		soundButton = new TextButton("Sound: ", style);
-		setSoundButtonText();
+		this.exitButton = new TextButton("Exit", this.style);
 		
-		soundButton.addListener(new ClickListener(){
+		this.exitButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO Auto-generated method stub
+				super.clicked(event, x, y);
+				Game.soundListener.ButtonSound();
+				Gdx.app.exit();
+			}
+		});
+		
+		this.soundButton = new TextButton("Sound: ", this.style);
+		this.setSoundButtonText();
+		
+		this.soundButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				// TODO Auto-generated method stub
 				super.clicked(event, x, y);
 				BreakoutSettings.Sound_On = !BreakoutSettings.Sound_On;
-				setSoundButtonText();
+				MainMenuScreen.this.setSoundButtonText();
+				Game.soundListener.ButtonSound();
 			}
 		});
 		
@@ -156,52 +297,69 @@ public class MainMenuScreen implements Screen{
 		Table table = new Table();
 		table.setWidth(BreakoutSettings.SCREEN_WIDTH);
 		table.setHeight(BreakoutSettings.SCREEN_HEIGHT);
-		table.add(levelButton).center().width(MainButtonWidth).height(MainButtonHeight).pad(MainButtonPad);
+		table.add(this.levelButton).center().width(this.MainButtonWidth).height(this.MainButtonHeight).pad(this.MainButtonPad);
 		table.row();
-		table.add(levelCreateButton).center().width(MainButtonWidth).height(MainButtonHeight).pad(MainButtonPad);
+		table.add(this.levelCreateButton).center().width(this.MainButtonWidth).height(this.MainButtonHeight).pad(this.MainButtonPad);
 		table.row();
-		table.add(soundButton).center().width(MainButtonWidth).height(MainButtonHeight).pad(MainButtonPad);
+		table.add(this.soundButton).center().width(this.MainButtonWidth).height(this.MainButtonHeight).pad(this.MainButtonPad);
 		table.row();
-		table.add(exitButton).center().width(MainButtonWidth).height(MainButtonHeight).pad(MainButtonPad);
+		table.add(this.exitButton).center().width(this.MainButtonWidth).height(this.MainButtonHeight).pad(this.MainButtonPad);
 		
-		mainMenuStage.addActor(table);
+		this.mainMenuStage.addActor(table);
 	}
 	
 	private void setSoundButtonText(){
 		if(BreakoutSettings.Sound_On){
-			soundButton.setText("Sound: ON");
+			this.soundButton.setText("Sound: ON");
 		}
 		else{
-			soundButton.setText("Sound: OFF");
+			this.soundButton.setText("Sound: OFF");
 		}
 	}
 
 	@Override
 	public void show() {
-		setMainMenu();
-		setSoundButtonText();
+		if(this.beginInLevel){
+			this.setLevelSelectMenu();
+		}
+		else{
+			this.setMainMenu();
+		}
+		this.setSoundButtonText();
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Game.camera.update();
-		Game.batch.setProjectionMatrix(Game.camera.combined);
-		if(isInLevelSelect){
-			levelSelectStage.act(delta);
-			levelSelectStage.draw();
+		this.Game.camera.update();
+		this.Game.batch.setProjectionMatrix(this.Game.camera.combined);
+		if(this.isInLevelSelect){
+			Game.batch.begin();
+			this.LevelSelectBackground.draw(Game.batch);
+			Game.batch.end();
+			this.levelSelectStage.act(delta);
+			this.levelSelectStage.draw();
 		}
-		if(isInMainMenu){
-			mainMenuStage.act(delta);
-			mainMenuStage.draw();
+		if(this.isInMainMenu){
+			Game.batch.begin();
+			this.MainMenuBackground.draw(Game.batch);
+			Game.batch.end();
+			this.mainMenuStage.act(delta);
+			this.mainMenuStage.draw();
+		}
+		if(this.isInOnlineSelect){
+			Game.batch.begin();
+			this.OnlineBackground.draw(Game.batch);
+			Game.batch.end();
+			this.onlineSelectStage.act(delta);
+			this.onlineSelectStage.draw();
 		}
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		mainMenuStage.getViewport().setScreenSize(width, height);
-		levelSelectStage.getViewport().setScreenSize(width, height);
-		
+		this.mainMenuStage.getViewport().setScreenSize(width, height);
+		this.levelSelectStage.getViewport().setScreenSize(width, height);
 	}
 
 	@Override
@@ -225,6 +383,25 @@ public class MainMenuScreen implements Screen{
 	@Override
 	public void dispose() {
 		Gdx.input.setInputProcessor(null);
+	}
+
+	@Override
+	public void handleHttpResponse(HttpResponse httpResponse) {
+		
+		this.generateOnlineLevelButtons(httpResponse.getResultAsString());
+		
+	}
+
+	@Override
+	public void failed(Throwable t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancelled() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

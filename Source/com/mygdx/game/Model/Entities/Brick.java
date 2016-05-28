@@ -2,6 +2,7 @@ package com.mygdx.game.Model.Entities;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Pool.Poolable;
+import com.mygdx.game.interfaces.GameSoundListener;
 
 /**
  * Created by Michael on 2016-04-18.
@@ -22,56 +23,63 @@ public class Brick implements Poolable{
 	private boolean alive;
 	public BrickType brickType;
 	
-	
+	public static GameSoundListener soundListener;
     public static float BRICK_WIDTH = 45;
     public static float BRICK_HEIGHT = 15;
     public Body brickBody;
     public int ID;
     
     public Brick(int numberofBricksTotal) {
-		ID = numberofBricksTotal;
-		brickType = BrickType.undefined;
-		alive = false;
+		this.ID = numberofBricksTotal;
+		this.brickType = BrickType.undefined;
+		this.alive = false;
 	}
 	public void setBody(Body body){
-    	brickBody = body;
+    	this.brickBody = body;
     }
 	public void setType(BrickType type){
-		alive = true;
-		brickType = type;
+		this.alive = true;
+		this.brickType = type;
 	}
 	public void hit(){
-		System.out.println("IN I METODEN");
-		switch (brickType) {
+		switch (this.brickType) {
 		case invisible:
-			brickType = BrickType.steel3;
+			this.brickType = BrickType.steel3;
+			soundListener.SteelHit();
 			break;
 		case invurnerable:
+			soundListener.InvurnerableHit();
 			break;
 		case normal1:
-			alive = false;
+			soundListener.Normalhit();
+			this.alive = false;
 			break;
 		case normal2:
-			brickType = BrickType.normal1;
+			soundListener.Normalhit();
+			this.brickType = BrickType.normal1;
 			break;
 		case normal3:
-			brickType = BrickType.normal2;
+			soundListener.Normalhit();
+			this.brickType = BrickType.normal2;
 			break;
 		case steel1:
-			alive = false;
+			soundListener.SteelHit();
+			this.alive = false;
 			break;
 		case steel2:
-			brickType = BrickType.steel1;
+			soundListener.SteelHit();
+			this.brickType = BrickType.steel1;
 			break;
 		case steel3:
-			brickType = BrickType.steel2;
+			soundListener.SteelHit();
+			this.brickType = BrickType.steel2;
 			break;
 		default:
 			break;
 		}
 	}
 	public boolean isAlive(){
-		return alive;
+		return this.alive;
 	}
 	
 	public void init(){
@@ -79,8 +87,8 @@ public class Brick implements Poolable{
     }
 	@Override
 	public void reset() {
-		alive = false;
-		brickType = BrickType.undefined;
-		brickBody = null;
+		this.alive = false;
+		this.brickType = BrickType.undefined;
+		this.brickBody = null;
 	}
 }

@@ -8,7 +8,7 @@ import com.mygdx.game.Model.Entities.Map;
 import com.mygdx.game.Settings.BreakoutSettings;
 
 public class MapTextures {
-	public static Sprite WallSide, WallTop, Normal1, Normal2, Normal3, Steel1, Steel2, Steel3, Invurnerable, BallTexture;
+	public static Sprite WallSide, WallTop, Normal1, Normal2, Normal3, Steel1, Steel2, Steel3, Invurnerable, BallTexture, Invisible;
 	
 	public static void loadTextures(){
 		loadWallTextures();
@@ -38,6 +38,7 @@ public class MapTextures {
 		Steel2 = new Sprite(new Texture("Textures/Steel2.png"));
 		Steel3 = new Sprite(new Texture("Textures/Steel3.png"));
 		Invurnerable = new Sprite(new Texture("Textures/Invurnerable.png"));
+		Invisible = new Sprite(new Texture("Textures/Invisible.png"));
 		
 		setBrickSize(Normal1);
 		setBrickSize(Normal2);

@@ -2,7 +2,6 @@ package com.mygdx.game.Model;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Model.Entities.Brick.BrickType;
-import com.mygdx.game.Screens.CreateMapScreen;
 import com.mygdx.game.Settings.BreakoutSettings;
 import com.mygdx.game.interfaces.MapCreateMenuListener;
 
@@ -15,82 +14,82 @@ public class MapCreateMenu {
 	public Vector2 selectedPosition;
 	
 	public MapCreateMenu(){
-		hasSelected = false;
-		isClicking = false;
+		this.hasSelected = false;
+		this.isClicking = false;
 		float y = BreakoutSettings.SCREEN_HEIGHT - MapCreateModel.ItemMenuPadTop;
 		float x = 200;
 		float nr = 1;
 		float pad = 10;
-		Normal1 = new MenuItem(BrickType.normal1, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
+		this.Normal1 = new MenuItem(BrickType.normal1, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
 		nr++;
-		Normal2 = new MenuItem(BrickType.normal2, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
+		this.Normal2 = new MenuItem(BrickType.normal2, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
 		nr++;
-		Normal3 = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
+		this.Normal3 = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
 		nr++;
-		Steel1 = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
+		this.Steel1 = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
 		nr++;
-		Steel2 = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
+		this.Steel2 = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
 		nr++;
-		Steel3 = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
+		this.Steel3 = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
 		nr++;
-		Invisible = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
+		this.Invisible = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
 		nr++;
-		Invurnerable = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
+		this.Invurnerable = new MenuItem(BrickType.normal3, new Vector2(x + MapCreateModel.ItemMenuWidth * nr + pad * nr, y));
 	}
 	
 	public void setListener(MapCreateMenuListener list){
-		listener = list;
+		this.listener = list;
 	}
 	
 	public void setClicking(boolean click, Vector2 position){
 		if(click){
-			if(!isClicking){
-				if(Normal1.isWithinButton(position)){
-					hasSelected = true;
-					selectedBrick = BrickType.normal1;
+			if(!this.isClicking){
+				if(this.Normal1.isWithinButton(position)){
+					this.hasSelected = true;
+					this.selectedBrick = BrickType.normal1;
 				}
-				else if(Normal2.isWithinButton(position)){
-					hasSelected = true;
-					selectedBrick = BrickType.normal2;
+				else if(this.Normal2.isWithinButton(position)){
+					this.hasSelected = true;
+					this.selectedBrick = BrickType.normal2;
 				}
-				else if(Normal3.isWithinButton(position)){
-					hasSelected = true;
-					selectedBrick = BrickType.normal3;
+				else if(this.Normal3.isWithinButton(position)){
+					this.hasSelected = true;
+					this.selectedBrick = BrickType.normal3;
 				}
-				else if(Steel1.isWithinButton(position)){
-					hasSelected = true;
-					selectedBrick = BrickType.steel1;
+				else if(this.Steel1.isWithinButton(position)){
+					this.hasSelected = true;
+					this.selectedBrick = BrickType.steel1;
 				}
-				else if(Steel2.isWithinButton(position)){
-					hasSelected = true;
-					selectedBrick = BrickType.steel2;
+				else if(this.Steel2.isWithinButton(position)){
+					this.hasSelected = true;
+					this.selectedBrick = BrickType.steel2;
 				}
-				else if(Steel3.isWithinButton(position)){
-					hasSelected = true;
-					selectedBrick = BrickType.steel3;
+				else if(this.Steel3.isWithinButton(position)){
+					this.hasSelected = true;
+					this.selectedBrick = BrickType.steel3;
 				}
-				else if(Invisible.isWithinButton(position)){
-					hasSelected = true;
-					selectedBrick = BrickType.invisible;
+				else if(this.Invisible.isWithinButton(position)){
+					this.hasSelected = true;
+					this.selectedBrick = BrickType.invisible;
 				}
-				else if(Invurnerable.isWithinButton(position)){
-					hasSelected = true;
-					selectedBrick = BrickType.invurnerable;
+				else if(this.Invurnerable.isWithinButton(position)){
+					this.hasSelected = true;
+					this.selectedBrick = BrickType.invurnerable;
 				}
 			}
-			if(hasSelected){
-				selectedPosition = position;
+			if(this.hasSelected){
+				this.selectedPosition = position;
 			}
 		}
 		else{
-			if (hasSelected) {
+			if (this.hasSelected) {
 				//Place Brick
-				selectedBrick = BrickType.undefined;
-				hasSelected = false;
-				System.out.println("PLACED");
+				this.listener.placeBrick(this.selectedPosition, this.selectedBrick);
+				this.selectedBrick = BrickType.undefined;
+				this.hasSelected = false;
 			}
 		}
-		isClicking = click;
+		this.isClicking = click;
 	}
 
 }

@@ -18,24 +18,21 @@ public class ScreenHandler {
         MenuScreen,
         CreateMapScreen
     }
+    
+    public ScreenHandler(BreakoutGame breakoutGame){
+        this.gameScreen = new GameScreen(breakoutGame);
+    	this.menuScreen = new MainMenuScreen(breakoutGame);
+		this.createScreen = new CreateMapScreen(breakoutGame);
+    }
 
-    public Screen getScreen(ScreenType type, BreakoutGame breakoutGame){
+    public Screen getScreen(ScreenType type){
         switch (type) {
             case GameScreen:
-                if (gameScreen == null){
-                    gameScreen = new GameScreen(breakoutGame);
-                }
-                return gameScreen;
+                return this.gameScreen;
 		case MenuScreen:
-            if (menuScreen == null){
-            	menuScreen = new MainMenuScreen(breakoutGame);
-            }
-            return menuScreen;
+            return this.menuScreen;
 		case CreateMapScreen:
-			if(createScreen == null){
-				createScreen = new CreateMapScreen(breakoutGame);
-			}
-			return createScreen;
+			return this.createScreen;
 		default:
 			break;
         }

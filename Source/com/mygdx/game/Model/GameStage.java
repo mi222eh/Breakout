@@ -16,17 +16,24 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Model.Entities.Ball;
+import com.mygdx.game.Model.Entities.BottomSensor;
+import com.mygdx.game.Model.Entities.Ball.BallSpeed;
 import com.mygdx.game.Model.Entities.Brick;
 import com.mygdx.game.Model.Entities.Map;
 import com.mygdx.game.Model.Entities.Player;
 import com.mygdx.game.Model.Entities.Player.PlayerWidth;
+import com.mygdx.game.Model.Entities.Powerup;
+import com.mygdx.game.Model.Entities.Wall;
+import com.mygdx.game.Model.Entities.Powerup.PowerupType;
 import com.mygdx.game.Settings.BreakoutSettings;
+import com.mygdx.game.interfaces.GameContactContactListener;
+import com.mygdx.game.interfaces.GameSoundListener;
 import com.mygdx.game.interfaces.MapListener;
 
 /**
  * Created by Michael on 2016-04-11.
  */
-public class GameStage implements MapListener{
+public class GameStage implements MapListener, GameContactContactListener{
 
 	public boolean started;
     public World world;
@@ -35,119 +42,289 @@ public class GameStage implements MapListener{
     public Map map;
     public Array<Ball> Balls;
     private Pool<Ball> InactiveBalls;
+    public Array<Powerup> Powerups;
+    private Pool<Powerup>InactivePowerups;
+    public GameSoundListener soundListener;
+    public BreakoutContactListener contactListener;
 
     public GameStage(){
-    	started = false;
-    	map = new Map();
-    	map.addMapListener(this);
+    	
+    	Ball.currentSpeed = BallSpeed.Normal;
+    	
+    	this.started = false;
+    	this.map = new Map();
+    	this.map.addMapListener(this);
 
        	//World
-        world = new World(new Vector2(0,0), false);
-        world.setContactListener(new BreakoutContactListener());
+        this.world = new World(new Vector2(0,0), false);
+        this.contactListener = new BreakoutContactListener();
+        contactListener.setListener(this);
+        this.world.setContactListener(contactListener);
 
         Box2D.init();
         
-        
+        //Powerups
+        this.Powerups = new Array<Powerup>();
+        this.InactivePowerups = new Pool<Powerup>() {
+			@Override
+			protected Powerup newObject() {
+				Powerup power = new Powerup();
+				return power;
+			}
+		};
         //Ball
-        Balls = new Array<Ball>();
-        Ball ball = new Ball();
-        Fixture ballfixture = GameStage.CreateCircle(Ball.BALL_RADIUS, world);
-        ballfixture.setUserData(ball);
-        ball.setBody(ballfixture.getBody());
-        Balls.add(ball);
+        this.Balls = new Array<Ball>();
+        this.InactiveBalls = new Pool<Ball>() {
+			
+			@Override
+			protected Ball newObject() {
+				Ball ball = new Ball();
+				return ball;
+			}
+		};
         
         
         //Player
-        player = new Player();
+        this.player = new Player();
         
-        Fixture fixtureSmallest = GameStage.CreatePlayer(PlayerWidth.Smallest.getVal(), Player.PLAYER_HEIGHT, world);
-        fixtureSmallest.setUserData(player);
-        Fixture fixtureSmall = GameStage.CreatePlayer(PlayerWidth.Small.getVal(), Player.PLAYER_HEIGHT, world);
-        fixtureSmall.setUserData(player);
-        Fixture fixtureNormal = GameStage.CreatePlayer(PlayerWidth.Normal.getVal(), Player.PLAYER_HEIGHT, world);
-        fixtureNormal.setUserData(player);
-        Fixture fixtureLarge = GameStage.CreatePlayer(PlayerWidth.Large.getVal(), Player.PLAYER_HEIGHT, world);
-        fixtureLarge.setUserData(player);
-        Fixture fixtureLargest = GameStage.CreatePlayer(PlayerWidth.Largest.getVal(), Player.PLAYER_HEIGHT, world);
-        fixtureLargest.setUserData(player);
-        player.setBodies(fixtureSmallest.getBody(), fixtureSmall.getBody(), fixtureNormal.getBody(), fixtureLarge.getBody(), fixtureLargest.getBody());
+        Fixture fixtureSmallest = GameStage.CreatePlayer(PlayerWidth.Smallest.getVal(), Player.PLAYER_HEIGHT, this.world);
+        fixtureSmallest.setUserData(this.player);
+        Fixture fixtureSmall = GameStage.CreatePlayer(PlayerWidth.Small.getVal(), Player.PLAYER_HEIGHT, this.world);
+        fixtureSmall.setUserData(this.player);
+        Fixture fixtureNormal = GameStage.CreatePlayer(PlayerWidth.Normal.getVal(), Player.PLAYER_HEIGHT, this.world);
+        fixtureNormal.setUserData(this.player);
+        Fixture fixtureLarge = GameStage.CreatePlayer(PlayerWidth.Large.getVal(), Player.PLAYER_HEIGHT, this.world);
+        fixtureLarge.setUserData(this.player);
+        Fixture fixtureLargest = GameStage.CreatePlayer(PlayerWidth.Largest.getVal(), Player.PLAYER_HEIGHT, this.world);
+        fixtureLargest.setUserData(this.player);
+        this.player.setBodies(fixtureSmallest.getBody(), fixtureSmall.getBody(), fixtureNormal.getBody(), fixtureLarge.getBody(), fixtureLargest.getBody());
         
-        player.init();
+        this.player.init();
         
         
-        //GameStage.createBrick(world, new Vector2(500, 500));
-        GameStage.createWalls(world, Map.WALL_WIDTH);
-        GameStage.createBottomSensor(world);
+        GameStage.createWalls(this.world, Map.WALL_WIDTH);
+        GameStage.createBottomSensor(this.world);
     }
 
     public void init(){
-    	started = false;
+    	this.started = false;
+    	Ball.currentSpeed = BallSpeed.Normal;
+    	player.init();
+    	
+    	for (int i = 0; i < Powerups.size; i++) {
+			Powerup powerup = Powerups.get(i);
+			this.destroyBrick(powerup.powerBody);
+		}
+    	InactivePowerups.freeAll(Powerups);
+    	Powerups.clear();
+    	
+    	for (int i = 0; i < this.Balls.size; i++) {
+			Ball ball = this.Balls.get(i);
+			this.destroyBrick(ball.ballBody);
+		}
+    	this.InactiveBalls.freeAll(this.Balls);
+    	this.Balls.clear();
+        Ball ball = this.InactiveBalls.obtain();
+        Fixture ballfixture = GameStage.CreateCircle(Ball.BALL_RADIUS, this.world);
+        ballfixture.setUserData(ball);
+        ball.setBody(ballfixture.getBody());
+        this.Balls.add(ball);
     }
     
     public void start(){
-    	if(!started){
-        	started = true;
-        	for (int i = 0; i < Balls.size; i++) {
-				Ball ball = Balls.get(i);
-				ball.init(ball.ballBody.getPosition(), new Vector2(200, 200));
+    	if(!this.started){
+    		soundListener.Begin();
+        	this.started = true;
+        	for (int i = 0; i < this.Balls.size; i++) {
+				Ball ball = this.Balls.get(i);
+				float speed = Ball.currentSpeed.getVal();
+				float speedY = Ball.getMinYSpeed();
+				float speedX = (float) Math.sqrt(speed * speed - speedY * speedY);
+				ball.init(ball.ballBody.getPosition(), new Vector2(speedX, speedY));
 			}
     	}
     }
     
     public void makePlayerBigger(){
-    	player.makeBigger();
+    	this.player.makeBigger();
     }
     
     public void MakePlayerSmaller(){
-    	player.makeSmaller();
+    	this.player.makeSmaller();
+    }
+    public void duplicateBalls(){
+    	if(this.started){
+    		Array<Ball>newBalls = new Array<>();
+        	for (int i = 0; i < this.Balls.size; i++) {
+    			Ball ball = this.Balls.get(i);
+    			Vector2 speed = ball.ballBody.getLinearVelocity();
+    			Ball newBall = this.InactiveBalls.obtain();
+    			Fixture ballFixture = GameStage.CreateCircle(Ball.BALL_RADIUS, this.world);
+    			ballFixture.setUserData(newBall);
+    			newBall.setBody(ballFixture.getBody());
+    			newBall.init(ball.ballBody.getPosition(), new Vector2(speed.y, speed.x * -1));
+    			newBalls.add(newBall);
+    		}
+        	for (int i = 0; i < newBalls.size; i++) {
+				Ball ball = newBalls.get(i);
+				this.Balls.add(ball);
+			}
+        	newBalls.clear();
+    	}
+    }
+    
+    private void updateBallSpeed(){
+    	for (int i = 0; i < this.Balls.size; i++) {
+			Ball ball = this.Balls.get(i);
+			Vector2 speed = ball.ballBody.getLinearVelocity();
+			float angle = (float) Math.toDegrees(Math.atan2(speed.y, speed.x));
+			float newSpeed = Ball.currentSpeed.getVal();
+			float lastAngle = 180 - 90 - angle;
+			float y = (float) ((newSpeed * Math.sin(Math.toRadians(angle))) / Math.sin(Math.toRadians(90)));
+			float x = (float) ((newSpeed * Math.sin(Math.toRadians(lastAngle))) / Math.sin(Math.toRadians(90)));
+			ball.ballBody.setLinearVelocity(new Vector2(x, y));
+		}
+    }
+    
+    public void accelerateBalls(){
+    	if(this.started){
+        	Ball.increaseSpeed();
+        	this.updateBallSpeed();
+    	}
+    }
+    
+    public void slowDownBalls(){
+    	if(this.started){
+        	Ball.decreaseSpeed();
+        	this.updateBallSpeed();
+    	}
+    }
+    
+    private void checkBallAngle(Ball ball){
+    	float speedX = 0;
+		Body Ballbody = ball.ballBody;
+		Vector2 velocity = Ballbody.getLinearVelocity();
+		float currentSpeed = Ball.currentSpeed.getVal();
+		float minYVelocity = Ball.getMinYSpeed();
+		if(velocity.y > 0 && velocity.y < minYVelocity){
+			speedX = (float) Math.sqrt(currentSpeed * currentSpeed - minYVelocity * minYVelocity);
+			if(velocity.x < 0){
+				speedX *= -1;
+			}
+			Ballbody.setLinearVelocity(speedX, minYVelocity);
+		}
+		if(velocity.y <= 0 && velocity.y > -1 * minYVelocity){
+			minYVelocity *= -1;
+			speedX = (float) Math.sqrt(currentSpeed * currentSpeed - (-minYVelocity * -minYVelocity));
+			if((int)velocity.x < 0){
+				speedX *= -1;
+			}
+			Ballbody.setLinearVelocity(speedX, minYVelocity);
+		}
+    }
+    
+    private void checkBalls(){
+    	for (int i = 0; i < this.Balls.size; i++) {
+			Ball ball = this.Balls.get(i);
+			if(!ball.alive){
+				this.destroyBrick(ball.ballBody);
+				this.InactiveBalls.free(ball);
+				this.Balls.removeIndex(i);
+			}
+			else{
+				this.checkBallAngle(ball);
+			}
+		}
     }
  
     public void update(float time){
-    	if(!started){
-    		float playerX = player.getActiveBody().getPosition().x;
-    		for (int i = 0; i < Balls.size; i++) {
-				Ball ball = Balls.get(i);
+    	//STARTED CHECK
+    	if(!this.started){
+    		float playerX = this.player.getActiveBody().getPosition().x;
+    		for (int i = 0; i < this.Balls.size; i++) {
+				Ball ball = this.Balls.get(i);
 				ball.ballBody.setTransform(playerX, Ball.BALL_START_Y, 0);
 			}
     	}
-        int subSteps = 3;
+    	
+    	//CHECK BALLS SPEED AND ALIVE
+    	else{
+    		this.checkBalls();
+    	}
+    	
+    	//CHECK POWERUPS
+    	for (int i = 0; i < Powerups.size; i++) {
+			Powerup powerup = Powerups.get(i);
+			if(powerup.activate){
+				powerup.destroy();
+				PowerupType type = powerup.type;
+				switch (type) {
+				case DuplicateBalls:
+					duplicateBalls();
+					break;
+				case MakeBallsFaster:
+					accelerateBalls();
+					break;
+				case MakeBallsSlower:
+					slowDownBalls();
+					break;
+				case MakePlayerSmaller:
+					MakePlayerSmaller();
+					break;
+				case MakePlayerWider:
+					makePlayerBigger();
+					break;
+				default:
+					break;
+				}
+				if(!powerup.alive){
+					this.destroyBrick(powerup.powerBody);
+					InactivePowerups.free(powerup);
+					Powerups.removeIndex(i);
+				}
+			}
+		}
+        
+        //POWERUP GRAVITY
+        for (int i = 0; i < this.Powerups.size; i++) {
+			Powerup power = this.Powerups.get(i);
+			power.update(time);
+		}
+        
+        
+    	//WORLD STEP
+        int subSteps = 2;
         for (int i = 0; i < subSteps; i++){
-            world.step(time/subSteps, 400, 400);
+            this.world.step(time/subSteps, 16, 8);
         }
-        map.update();
+
+        this.map.update();
     }
 
     public void debugRender(OrthographicCamera camera){
-        debugRenderer.render(world, camera.combined);
+        this.debugRenderer.render(this.world, camera.combined);
     }
 
     public void setPlayerPosition (float position){
-        player.movePlayer(position);
+        this.player.movePlayer(position);
     }
 
     public static Fixture CreateCircle(float radius, World world){
-	        // First we create a body definition
 	        BodyDef bodyDef = new BodyDef();
-	        // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
 	        bodyDef.type = BodyDef.BodyType.DynamicBody;
-	        // Set our body's starting position in the world
 	        bodyDef.position.set(100, 400);
 	
-	        // Create our body in the world using our body definition
 	        Body body = world.createBody(bodyDef);
 	
-	        // Create a circle shape and set its radius to 6
 	        CircleShape circle = new CircleShape();
 	        circle.setRadius(radius);
 	
-	        // Create a fixture definition to apply our shape to
 	        FixtureDef fixtureDef = new FixtureDef();
 	        fixtureDef.shape = circle;
 	        fixtureDef.density = 0f;
 	        fixtureDef.friction = 0f;
 	        fixtureDef.restitution = 1f;
 	
-	        // Create our fixture and attach it to the body
 	        Fixture fixture = body.createFixture(fixtureDef);
 	        
 	        Filter filter = new Filter();
@@ -156,36 +333,27 @@ public class GameStage implements MapListener{
 	        
 	        fixture.setFilterData(filter);
 	
-	        // Remember to dispose of any shapes after you're done with them!
-	        // BodyDef and FixtureDef don't need disposing, but shapes do.
 	        circle.dispose();
 	        return fixture;
         }
 
     public static Fixture CreatePlayer(float width, float height, World world){
-        // First we create a body definition
         BodyDef bodyDef = new BodyDef();
-        // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
         bodyDef.type = BodyDef.BodyType.KinematicBody;
-        // Set our body's starting position in the world
         bodyDef.position.set(BreakoutSettings.SCREEN_WIDTH / 2, 100);
 
-        // Create our body in the world using our body definition
         Body body = world.createBody(bodyDef);
 
-        // Create a circle shape and set its radius to 6
         PolygonShape box = new PolygonShape();
         box.setAsBox(width, height);
 
 
-        // Create a fixture definition to apply our shape to
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = box;
         fixtureDef.density = 1f;
         fixtureDef.friction = 0f;
         fixtureDef.restitution = 1f;
 
-        // Create our fixture and attach it to the body
         Fixture fixture = body.createFixture(fixtureDef);
         
         Filter filter = new Filter();
@@ -193,8 +361,6 @@ public class GameStage implements MapListener{
         filter.categoryBits = BreakoutSettings.PLAYER;
         fixture.setFilterData(filter);
 
-        // Remember to dispose of any shapes after you're done with them!
-        // BodyDef and FixtureDef don't need disposing, but shapes do.
         box.dispose();
         return fixture;
     }
@@ -223,6 +389,7 @@ public class GameStage implements MapListener{
         fixtureDef.restitution = 0f;
 
         Fixture fixture = leftWall.createFixture(fixtureDef);
+        fixture.setUserData(new Wall());
         
         fixture.setFilterData(filter);
 
@@ -242,6 +409,7 @@ public class GameStage implements MapListener{
         Fixture fixture2 = upperWall.createFixture(fixtureDef2);
         
         fixture2.setFilterData(filter);
+        fixture2.setUserData(new Wall());
 
         //RIGHT WALL
         bodyDef.position.set(BreakoutSettings.SCREEN_WIDTH - (wallWidth / 2), BreakoutSettings.SCREEN_HEIGHT / 2);
@@ -259,19 +427,60 @@ public class GameStage implements MapListener{
         Fixture fixture3 = rightWall.createFixture(fixtureDef3);
         
         fixture3.setFilterData(filter);
+        fixture3.setUserData(new Wall());
 
         wall.dispose();
+    }
+    
+    @Override
+    public void createPowerup(Vector2 position){
+    	int type =  1 + (int) (Math.random() * ((5 - 1) + 1));
+    	PowerupType pType = PowerupType.MakeBallsFaster;
+    	switch (type){
+    	case 1:
+    		pType = PowerupType.MakePlayerWider;
+    		break;
+    	case 2:
+    		pType = PowerupType.MakePlayerSmaller;
+    		break;
+    	case 3:
+    		pType = PowerupType.DuplicateBalls;
+    		break;
+    	case 4:
+    		pType = PowerupType.MakeBallsFaster;
+    		break;
+    	case 5:
+    		pType = PowerupType.MakeBallsSlower;
+    		break;
+    	}
+    	
+    	Powerup power = this.InactivePowerups.obtain();
+    	Fixture powerFixture = GameStage.createPowerupBody(position, this.world);
+    	powerFixture.setUserData(power);
+    	
+    	power.setBody(powerFixture.getBody());
+    	
+    	float speedY = 30;
+    	float speedX = (float)(Math.random() * 300);
+    	
+    	float number = (float) (Math.random() * 50);
+    	if(number < 25){
+    		speedX *= -1;
+    	}
+    	
+    	power.init(position, new Vector2(speedX, speedY), pType);
+    	this.Powerups.add(power);
     }
     
     public static void createBottomSensor(World world){
     	BodyDef bodyDef = new BodyDef();
     	bodyDef.type = BodyType.StaticBody;
-    	bodyDef.position.set(BreakoutSettings.SCREEN_WIDTH / 2, Player.PLAYER_POSITION_Y / 2 - Player.PLAYER_HEIGHT / 2);
+    	bodyDef.position.set(BreakoutSettings.SCREEN_WIDTH / 2, Player.PLAYER_HEIGHT / 2);
     	
     	Body body = world.createBody(bodyDef);
     	
     	PolygonShape polygonShape = new PolygonShape();
-    	polygonShape.setAsBox(BreakoutSettings.SCREEN_WIDTH / 2, ((Player.PLAYER_POSITION_Y / 2) - Player.PLAYER_HEIGHT / 2));
+    	polygonShape.setAsBox(BreakoutSettings.SCREEN_WIDTH / 2, (Player.PLAYER_HEIGHT / 2));
     	
     	FixtureDef fixtureDef = new FixtureDef();
     	fixtureDef.shape = polygonShape;
@@ -281,6 +490,7 @@ public class GameStage implements MapListener{
         
         fixtureDef.isSensor = true;
         Fixture fixture = body.createFixture(fixtureDef);
+        fixture.setUserData(new BottomSensor());
         
         Filter filter = new Filter();
         filter.maskBits = BreakoutSettings.MASK_BOTTOM_SENSOR;
@@ -289,6 +499,34 @@ public class GameStage implements MapListener{
         
         polygonShape.dispose();
     	
+    }
+    
+    public static Fixture createPowerupBody(Vector2 position, World world){
+    	BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(position);
+
+        Body body = world.createBody(bodyDef);
+
+        PolygonShape polygonShape = new PolygonShape();
+        polygonShape.setAsBox(Powerup.POWERUP_HEIGHT / 2, Powerup.POWERUP_HEIGHT / 2);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = polygonShape;
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0f;
+        fixtureDef.restitution = 0f;
+
+        Fixture fixture = body.createFixture(fixtureDef);
+        
+        Filter filter = new Filter();
+        filter.maskBits = BreakoutSettings.MASK_POWERUP;
+        filter.categoryBits = BreakoutSettings.POWERUP;
+        fixture.setFilterData(filter);
+        
+        polygonShape.dispose();
+
+        return fixture;
     }
 
     public static Fixture createBrick(World world, Vector2 position){
@@ -321,12 +559,12 @@ public class GameStage implements MapListener{
 
 	@Override
 	public void createBrick(Vector2 position, int type) {
-		Fixture brickFixture = GameStage.createBrick(world, position);
-		map.addBrick(brickFixture, type);
+		Fixture brickFixture = GameStage.createBrick(this.world, position);
+		this.map.addBrick(brickFixture, type);
 	}
 
 	@Override
 	public void destroyBrick(Body brickBody) {
-		world.destroyBody(brickBody);
+		this.world.destroyBody(brickBody);
 	}
 }

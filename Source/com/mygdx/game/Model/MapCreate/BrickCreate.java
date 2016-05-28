@@ -1,11 +1,12 @@
 package com.mygdx.game.Model.MapCreate;
 
-public class BrickCreate {
+public class BrickCreate{
 	public float x;
 	public float y;
-	public BrickCreate(float PosX, float PosY){
-		x = PosX;
-		y = PosY;
+	public int type;
+	public BrickCreate(float PosX, float PosY, int brickType){
+		this.x = PosX;
+		this.y = PosY;
+		this.type = brickType;
 	}
-
 }
