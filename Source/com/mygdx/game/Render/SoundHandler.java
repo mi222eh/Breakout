@@ -6,7 +6,6 @@ import com.mygdx.game.Settings.BreakoutSettings;
 import com.mygdx.game.interfaces.GameSoundListener;
 
 public class SoundHandler implements GameSoundListener{
-	private float volume = 0.5f;
 	Sound HitNormal1, HitNormal2, HitNormal3, Begin1, Begin2, Begin3, Player1, Player2, Player3, HitInvurnerable1, HitInvurnerable2, HitInvurnerable3, Steel1, Steel2, Steel3, Button1, Button2, Button3;
 	
 	public SoundHandler(){
@@ -78,19 +77,20 @@ public class SoundHandler implements GameSoundListener{
 
 	@Override
 	public void SteelHit() {
-		int number = getNumber();
-		switch(number){
-		case 1:
-			Steel1.play();
-			break;
-		case 2:
-			Steel2.play();
-			break;
-		case 3:
-			Steel3.play();
-			break;
+		if(BreakoutSettings.Sound_On){
+			int number = getNumber();
+			switch(number){
+			case 1:
+				Steel1.play();
+				break;
+			case 2:
+				Steel2.play();
+				break;
+			case 3:
+				Steel3.play();
+				break;
+			}
 		}
-		
 	}
 
 	@Override
@@ -114,13 +114,13 @@ public class SoundHandler implements GameSoundListener{
 			int number = getNumber();
 			switch(number){
 			case 1:
-				Begin1.play(volume);
+				Begin1.play();
 				break;
 			case 2:
-				Begin2.play(volume);
+				Begin2.play();
 				break;
 			case 3:
-				Begin3.play(volume);
+				Begin3.play();
 				break;
 			}
 		}

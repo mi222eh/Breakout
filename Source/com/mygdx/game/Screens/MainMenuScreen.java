@@ -15,8 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
@@ -29,9 +31,9 @@ public class MainMenuScreen implements Screen, HttpResponseListener{
 	
 	private Sprite MainMenuBackground, LevelSelectBackground, OnlineBackground;
 	
-	private final int MainButtonWidth = 500;
-	private final int MainButtonHeight = 75;
-	private final int MainButtonPad = 5;
+	public static final int MainButtonWidth = 500;
+	public static final int MainButtonHeight = 75;
+	public static final int MainButtonPad = 5;
 	
 	private final int LevelButtonWidth = 235;
 	private final int LevelButtonHeight = 75;
@@ -44,6 +46,8 @@ public class MainMenuScreen implements Screen, HttpResponseListener{
 	
 	private HttpResponseListener httpListener;
 	private GetOnlineMapListener getOnlineMapListener;
+
+    private ScrollPaneStyle scrollStyle;
 	
 	
 	private Stage mainMenuStage, levelSelectStage, onlineSelectStage;
@@ -62,6 +66,8 @@ public class MainMenuScreen implements Screen, HttpResponseListener{
 		
 		this.style = MenuStyle.style;
 		
+        this.scrollStyle = new ScrollPaneStyle();
+        
 		this.generateMainMenuStage();
 		this.generateLevelSelectStage();
 		this.generateOnlineSelectStage();
@@ -113,13 +119,13 @@ public class MainMenuScreen implements Screen, HttpResponseListener{
 		for (int i = 0; i < texts.size; i++) {
 			String name = texts.getString(i);
 			TextButton button = this.generateOnlineLevelButton(name);
-			table.add(button).width(this.MainButtonWidth).height(this.MainButtonHeight).pad(10).center();
+			table.add(button).width(MainMenuScreen.MainButtonWidth).height(MainMenuScreen.MainButtonHeight).pad(10).center();
 			table.row();
 		}
-		ScrollPane scroll = new ScrollPane(table);
-		scroll.setWidth(BreakoutSettings.SCREEN_WIDTH - 20);
-		scroll.setHeight(BreakoutSettings.SCREEN_HEIGHT - 200);
-		scroll.setPosition(10, 200);
+		ScrollPane scroll = new ScrollPane(table, this.scrollStyle);
+		scroll.setWidth(BreakoutSettings.SCREEN_WIDTH - 500);
+		scroll.setHeight(BreakoutSettings.SCREEN_HEIGHT);
+		scroll.setPosition(250, 0);
 		this.onlineSelectStage.addActor(scroll);
 	}
 	private TextButton generateOnlineLevelButton(String name){
@@ -165,7 +171,7 @@ public class MainMenuScreen implements Screen, HttpResponseListener{
 		table.setHeight(BreakoutSettings.SCREEN_HEIGHT);
 		table.center();
 		
-		for(int i = 0; i < 10; i++){
+		for(int i = 0; i < 5; i++){
 			int level = i + 1;
 			TextButton button = new TextButton("Map " + level, this.style);
 			table.add(button).width(this.LevelButtonWidth).height(this.LevelButtonHeight).pad(this.LevelButtonPad);
@@ -297,13 +303,13 @@ public class MainMenuScreen implements Screen, HttpResponseListener{
 		Table table = new Table();
 		table.setWidth(BreakoutSettings.SCREEN_WIDTH);
 		table.setHeight(BreakoutSettings.SCREEN_HEIGHT);
-		table.add(this.levelButton).center().width(this.MainButtonWidth).height(this.MainButtonHeight).pad(this.MainButtonPad);
+		table.add(this.levelButton).center().width(MainMenuScreen.MainButtonWidth).height(MainMenuScreen.MainButtonHeight).pad(MainMenuScreen.MainButtonPad);
 		table.row();
-		table.add(this.levelCreateButton).center().width(this.MainButtonWidth).height(this.MainButtonHeight).pad(this.MainButtonPad);
+		table.add(this.levelCreateButton).center().width(MainMenuScreen.MainButtonWidth).height(MainMenuScreen.MainButtonHeight).pad(MainMenuScreen.MainButtonPad);
 		table.row();
-		table.add(this.soundButton).center().width(this.MainButtonWidth).height(this.MainButtonHeight).pad(this.MainButtonPad);
+		table.add(this.soundButton).center().width(MainMenuScreen.MainButtonWidth).height(MainMenuScreen.MainButtonHeight).pad(MainMenuScreen.MainButtonPad);
 		table.row();
-		table.add(this.exitButton).center().width(this.MainButtonWidth).height(this.MainButtonHeight).pad(this.MainButtonPad);
+		table.add(this.exitButton).center().width(MainMenuScreen.MainButtonWidth).height(MainMenuScreen.MainButtonHeight).pad(MainMenuScreen.MainButtonPad);
 		
 		this.mainMenuStage.addActor(table);
 	}
@@ -321,6 +327,7 @@ public class MainMenuScreen implements Screen, HttpResponseListener{
 	public void show() {
 		if(this.beginInLevel){
 			this.setLevelSelectMenu();
+			this.beginInLevel = false;
 		}
 		else{
 			this.setMainMenu();

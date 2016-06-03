@@ -9,9 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class MenuStyle {
 	public static TextButtonStyle style, InGameStyle;
-	
+	public static BitmapFont font;
 	public static void loadStyle(){
-		BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/GameFont.fnt"));
+		font = new BitmapFont(Gdx.files.internal("fonts/GameFont.fnt"));
 		
 		Texture buttonUP = new Texture("skin/ButtonUP.png");
 		Texture buttonDOWN = new Texture("skin/ButtonDOWN.png");

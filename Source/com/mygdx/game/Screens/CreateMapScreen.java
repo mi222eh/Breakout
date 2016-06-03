@@ -26,6 +26,7 @@ import com.mygdx.game.Model.MapCreate.BrickCreate;
 import com.mygdx.game.Model.MapCreate.MapCreate;
 import com.mygdx.game.Render.LevelCreatorRender;
 import com.mygdx.game.Render.MenuStyle;
+import com.mygdx.game.Render.MenuTextures;
 import com.mygdx.game.Settings.BreakoutSettings;
 
 public class CreateMapScreen implements Screen, HttpResponseListener{
@@ -40,9 +41,16 @@ public class CreateMapScreen implements Screen, HttpResponseListener{
 	public HttpResponseListener httpListener;
 	public boolean canSend;
 	
+	private float errorDisplayTime;
+	private float errorDisplayed;
+	private String message;
+		
+	
 	public Stage editStage;
 	
 	public CreateMapScreen(BreakoutGame game){
+		this.errorDisplayed = 3f;
+		this.errorDisplayTime = 2f;
 		this.CreateMapBackground = new Sprite(new Texture("Textures/LevelCreateBackground.png"));
 		this.NotPlaceArea = new Sprite(new Texture("Textures/NotPlaceArea.png"));
 		this.canSend = false;
@@ -69,6 +77,11 @@ public class CreateMapScreen implements Screen, HttpResponseListener{
 	
 	public void init(){
 		this.createModel.init();
+	}
+	
+	public void setMessage(String message){
+		this.errorDisplayed = 0f;
+		this.message = message;
 	}
 	
 	private void createBackButton(){
@@ -187,6 +200,12 @@ public class CreateMapScreen implements Screen, HttpResponseListener{
 					//HttpRequest req = reqBuilder.newRequest().method(HttpMethods.POST).url(BreakoutSettings.POST_MAP_URL).content(jsonMapString).build();
 					Gdx.net.sendHttpRequest(postRequest, CreateMapScreen.this.httpListener);
 				}
+				else if(CreateMapScreen.this.isThereOnlyInvulnerable()){
+					CreateMapScreen.this.setMessage("Error: Only invulnerable");
+				}
+				else{
+					CreateMapScreen.this.setMessage("Error: Empty");
+				}
 			}
 		});
 		this.editStage.addActor(button);
@@ -196,10 +215,28 @@ public class CreateMapScreen implements Screen, HttpResponseListener{
 	public void show() {
 		Gdx.input.setInputProcessor(this.editStage);
 	}
+	
+	private boolean isThereOnlyInvulnerable(){
+		if(createModel.mapCreate.bricks.size() != 0){
+			int numberOfBlocks = 0;
+			for (int i = 0; i < createModel.mapCreate.bricks.size(); i++) {
+				BrickCreate brick = createModel.mapCreate.bricks.get(i);
+				if(brick.type != 0){
+					numberOfBlocks++;
+				}
+			}
+			return numberOfBlocks == 0;
+		}
+		return false;
+	}
 
 	@Override
 	public void render(float delta) {
+		float frameTime = Math.min(delta, BreakoutSettings.MIN_TIME);
 		if(this.createModel.mapCreate.bricks.size() == 0){
+			this.canSend = false;
+		}
+		else if(this.isThereOnlyInvulnerable()){
 			this.canSend = false;
 		}
 		else{
@@ -221,13 +258,25 @@ public class CreateMapScreen implements Screen, HttpResponseListener{
 		this.createModel.update();
 		
 		this.Game.batch.begin();
+
 		this.CreateMapBackground.draw(Game.batch);
 		this.NotPlaceArea.draw(Game.batch);
 		this.creatorRender.render(this.Game.batch);
+		if(isShowingMessage(frameTime)){
+			MenuStyle.font.draw(this.Game.batch, this.message, 100, 300);
+		}
 		this.Game.batch.end();
 
 		this.editStage.draw();
 
+	}
+	
+	private boolean isShowingMessage(float time){
+		if(this.errorDisplayed <= this.errorDisplayTime){
+			this.errorDisplayed += time;
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -263,19 +312,20 @@ public class CreateMapScreen implements Screen, HttpResponseListener{
 	@Override
 	public void handleHttpResponse(HttpResponse httpResponse) {
 		// TODO Auto-generated method stub
+		setMessage(httpResponse.getResultAsString());
 		
 	}
 
 	@Override
 	public void failed(Throwable t) {
 		// TODO Auto-generated method stub
-		
+		setMessage("Error: Could not upload");
 	}
 
 	@Override
 	public void cancelled() {
 		// TODO Auto-generated method stub
-		
+		setMessage("Error: Cancelled upload");
 	}
 
 }

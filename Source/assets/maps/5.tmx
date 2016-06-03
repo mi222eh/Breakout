@@ -1,0 +1,1270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="24" tilewidth="32" tileheight="30" nextobjectid="377">
+ <objectgroup name="bricks">
+  <object id="2" x="403.69" y="463.016" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="5" x="403.429" y="447.117" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="7" x="402.977" y="414.984" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="8" x="402.356" y="366.016" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="9" x="403.238" y="430.883" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="10" x="402.431" y="382.118" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="11" x="402.095" y="350.117" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="12" x="402.691" y="398.017" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="13" x="401.977" y="317.984" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="14" x="400.69" y="269.016" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="15" x="402.238" y="333.883" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="16" x="401.097" y="285.784" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="17" x="400.429" y="253.117" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="18" x="401.357" y="301.683" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="19" x="399.644" y="220.65" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="20" x="399.69" y="171.683" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="21" x="399.905" y="236.549" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="22" x="399.764" y="188.118" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="23" x="399.429" y="155.784" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="24" x="400.024" y="204.017" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="26" x="513.023" y="465.016" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="29" x="512.762" y="449.117" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="31" x="511.977" y="416.65" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="32" x="511.69" y="368.35" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="33" x="512.238" y="432.549" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="34" x="511.764" y="384.784" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="35" x="511.429" y="352.451" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="36" x="512.024" y="400.683" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="43" x="510.977" y="319.984" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="44" x="511.023" y="272.016" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="45" x="511.238" y="335.883" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="46" x="510.764" y="288.118" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="47" x="510.762" y="256.117" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="48" x="511.024" y="304.017" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="49" x="510.977" y="223.984" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="50" x="510.69" y="175.683" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="51" x="511.238" y="239.883" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="52" x="510.764" y="192.118" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="53" x="510.429" y="159.784" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="54" x="511.024" y="208.017" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="55" x="1104.1" y="449.022" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="57" x="1058.38" y="449.022" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="60" x="721.47" y="432.434" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="62" x="1195.26" y="449.042" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="63" x="674.729" y="432.43" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="65" x="1012.97" y="449.018" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="66" x="581.691" y="432.315" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="68" x="1149.53" y="449.042" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="71" x="628.334" y="432.43" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="74" x="173.972" y="463.382" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="75" x="82.2683" y="462.934" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="77" x="310.532" y="463.406" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="78" x="219.382" y="463.386" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="80" x="265.102" y="463.386" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="81" x="356.262" y="463.406" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="83" x="128.245" y="463.382" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="84" x="220.95" y="446.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="85" x="175.54" y="446.712" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="86" x="266.67" y="446.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="87" x="83.8363" y="446.264" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="88" x="357.83" y="446.736" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="89" x="312.1" y="446.736" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="90" x="129.813" y="446.712" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="91" x="784.024" y="391.85" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="92" x="783.764" y="183.284" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="93" x="783.69" y="455.516" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="94" x="783.691" y="295.85" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="95" x="784.024" y="199.183" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="96" x="783.69" y="360.183" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="97" x="784.238" y="231.049" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="98" x="784.69" y="167.516" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="99" x="784.238" y="423.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="101" x="783.977" y="407.817" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="102" x="783.905" y="327.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="103" x="783.429" y="247.617" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="104" x="783.69" y="263.516" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="105" x="783.431" y="279.951" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="107" x="784.429" y="151.617" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="108" x="783.429" y="439.617" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="111" x="783.429" y="344.284" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="112" x="783.977" y="215.15" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="113" x="783.644" y="311.817" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="114" x="783.764" y="375.951" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="116" x="572.813" y="134.712" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="117" x="709.67" y="134.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="118" x="526.836" y="134.264" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="119" x="755.1" y="134.736" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="120" x="618.54" y="134.712" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="121" x="663.95" y="134.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="122" x="721.723" y="416.335" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="123" x="581.943" y="415.883" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="124" x="628.587" y="415.998" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="125" x="675.316" y="415.998" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="126" x="722.056" y="400.002" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="127" x="582.276" y="399.217" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="128" x="628.253" y="399.998" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="129" x="675.316" y="399.665" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="130" x="721.723" y="383.669" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="131" x="581.276" y="382.883" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="132" x="627.92" y="383.998" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="133" x="674.982" y="383.665" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="134" x="704.723" y="225.335" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="135" x="566.276" y="225.217" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="136" x="612.587" y="224.665" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="137" x="658.649" y="224.998" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="138" x="704.389" y="209.669" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="139" x="566.276" y="208.883" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="140" x="612.253" y="208.998" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="141" x="658.316" y="209.665" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="142" x="704.056" y="193.335" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="143" x="565.61" y="193.217" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="144" x="611.92" y="193.665" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="145" x="658.316" y="193.665" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="146" x="704.389" y="178.002" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="147" x="565.61" y="177.883" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="148" x="611.92" y="177.665" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="149" x="657.982" y="178.331" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="6"/>
+   </properties>
+  </object>
+  <object id="150" x="960.023" y="453.183" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="151" x="960.238" y="420.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="152" x="959.764" y="372.951" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="153" x="959.571" y="324.383" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="154" x="959.31" y="308.484" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="155" x="959.357" y="292.517" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="157" x="958.357" y="195.85" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="158" x="959.097" y="276.618" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="160" x="959.977" y="404.817" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="162" x="957.69" y="163.516" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="163" x="960.023" y="357.183" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="164" x="958.356" y="259.85" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="165" x="958.095" y="243.951" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="166" x="959.762" y="437.284" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="167" x="958.097" y="179.951" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="169" x="957.429" y="147.617" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="170" x="958.571" y="227.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="171" x="958.31" y="211.817" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="172" x="959.762" y="341.284" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="173" x="960.024" y="388.85" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="222" x="220.833" y="430.717" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="224" x="175.423" y="430.713" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="225" x="266.553" y="430.717" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="226" x="83.719" y="430.265" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="227" x="357.713" y="430.737" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="230" x="311.983" y="430.737" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="231" x="129.696" y="430.713" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="236" x="79.679" y="301.262" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="237" x="172.364" y="349.382" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="238" x="308.826" y="334.069" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="239" x="172.266" y="334.045" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="240" x="80.6603" y="348.934" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="241" x="172.148" y="318.046" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="242" x="217.558" y="318.049" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="243" x="126.637" y="349.382" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="244" x="217.676" y="334.049" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="245" x="263.278" y="318.049" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="246" x="308.708" y="318.069" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="247" x="354.654" y="349.406" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="248" x="171.383" y="301.709" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="249" x="262.513" y="301.714" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="250" x="263.396" y="334.049" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="251" x="126.421" y="318.046" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="252" x="354.556" y="334.069" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="253" x="217.774" y="349.386" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="254" x="126.539" y="334.045" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="255" x="263.494" y="349.386" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="256" x="80.4443" y="317.597" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="257" x="308.924" y="349.406" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="258" x="125.656" y="301.709" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="259" x="80.5617" y="333.597" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="260" x="353.673" y="301.734" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="261" x="354.438" y="318.069" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="262" x="307.943" y="301.734" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="263" x="216.793" y="301.714" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="264" x="456.833" y="158.167" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="289" x="204.617" y="48.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="290" x="295.767" y="48.736" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="291" x="159.207" y="48.711" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="292" x="250.337" y="48.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="293" x="67.503" y="48.264" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="294" x="113.48" y="48.711" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="295" x="341.497" y="48.736" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="296" x="533.117" y="47.8827" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="297" x="624.267" y="47.9027" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="298" x="487.707" y="47.8777" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="299" x="578.837" y="47.8827" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="300" x="391.503" y="48.264" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="301" x="437.48" y="48.711" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="302" x="669.997" y="47.9027" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="303" x="853.617" y="47.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="304" x="944.767" y="47.736" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="305" x="808.207" y="47.711" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="306" x="899.337" y="47.716" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="307" x="716.503" y="47.264" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="308" x="762.48" y="47.711" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="309" x="990.497" y="47.736" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="317" x="1085.82" y="49.8258" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="318" x="1040.1" y="49.8258" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="319" x="1131.25" y="49.8458" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="320" x="1176.97" y="49.8458" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="322" x="1013.36" y="433.488" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="323" x="1149.91" y="433.512" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="324" x="1058.77" y="433.492" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="325" x="1104.48" y="433.492" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="326" x="1195.64" y="433.512" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="327" x="1013.03" y="417.488" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="328" x="1149.58" y="417.512" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="329" x="1058.44" y="417.492" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="330" x="1104.15" y="417.492" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="331" x="1195.31" y="417.512" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="332" x="295.695" y="68.6217" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="333" x="487.635" y="67.7635" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="334" x="1131.18" y="69.7316" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="335" x="808.135" y="67.5968" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="336" x="990.425" y="67.6217" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="337" x="853.545" y="67.6018" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="338" x="391.431" y="68.1498" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="339" x="1176.9" y="69.7316" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="340" x="533.045" y="67.7685" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="341" x="1040.03" y="69.7116" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="342" x="624.195" y="67.7884" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="343" x="437.408" y="68.5968" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="344" x="67.4315" y="68.1498" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="345" x="944.695" y="67.6217" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="346" x="899.265" y="67.6018" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="347" x="341.425" y="68.6217" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="348" x="578.765" y="67.7685" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="349" x="716.431" y="67.1498" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="350" x="762.409" y="67.5968" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="351" x="669.925" y="67.7884" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="352" x="250.265" y="68.6018" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="353" x="113.408" y="68.5968" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="354" x="1085.75" y="69.7116" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="355" x="204.545" y="68.6018" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="356" x="159.135" y="68.5968" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="357" x="1050.45" y="252.388" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="358" x="1186.74" y="268.062" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="359" x="1186.53" y="236.726" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="360" x="1003.69" y="236.274" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="361" x="1050.24" y="220.052" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="362" x="1095.96" y="220.052" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="363" x="1004.26" y="219.605" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="364" x="1187.09" y="220.057" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="365" x="1095.61" y="268.058" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="366" x="1096.18" y="252.388" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="367" x="1003.91" y="267.61" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="368" x="1004.47" y="251.94" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="369" x="1187.31" y="252.392" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="370" x="1049.67" y="236.723" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="371" x="1095.39" y="236.723" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="372" x="1049.88" y="268.058" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="373" x="1141.02" y="268.062" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="374" x="1140.8" y="236.726" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="375" x="1141.59" y="252.392" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="376" x="1141.37" y="220.057" width="45" height="15">
+   <properties>
+    <property name="type" type="int" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

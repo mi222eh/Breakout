@@ -29,11 +29,13 @@ public class Map {
 	MapListener mapListener;
 	public GameSoundListener soundListener;
 	
+	public boolean hasWon;
 	public int numberofBricksTotal = 0;
 	public Array<Brick> invulnerableBricks;
 	public Array<Brick> bricks;
 	private Pool<Brick> inactiveBricks;
 	public Map(){
+		hasWon = false;
 		this.invulnerableBricks = new Array<Brick>();
 		this.bricks = new Array<Brick>();
 		this.inactiveBricks = new Pool<Brick>() {
@@ -45,6 +47,9 @@ public class Map {
 		};
 	}
 	public void update(){
+		if(this.bricks.size == 0){
+			hasWon = true;
+		}
 		for (int i = 0; i < this.bricks.size; i++) {
 			if(!this.bricks.get(i).isAlive()){
 				BrickType type = this.bricks.get(i).brickType;
@@ -71,6 +76,7 @@ public class Map {
 	}
 	
 	public void reset(){
+		hasWon = false;
 		for (int i = 0; i < this.bricks.size; i++) {
 			Brick brick = this.bricks.get(i);
 			this.mapListener.destroyBrick(brick.brickBody);

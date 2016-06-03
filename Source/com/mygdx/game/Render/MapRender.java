@@ -13,35 +13,48 @@ import com.mygdx.game.Settings.BreakoutSettings;
 
 public class MapRender {
 	
-	Sprite WallSide, WallTop, Background;
+	Sprite WallSide, WallTop, Background, WinTexture, LoseTexture;
 	
 	BallRender BallRender;
 	BrickRender BrickRender;
 	PlayerRender PlayerRender;
 	PowerupRender powerupsRender;
 	
+	private boolean ended;
+	private boolean hasWon;
+	
 	public MapRender(){
+		this.ended = false;
 		this.powerupsRender = new PowerupRender();
 		this.BallRender = new BallRender();
 		this.BrickRender = new BrickRender();
 		this.PlayerRender = new PlayerRender();
 		
-		//ALT INIT BEGIN
 		this.WallSide = MapTextures.WallSide;
 		this.WallTop = MapTextures.WallTop;
 		this.Background = new Sprite(new Texture("Textures/GameBackground.png"));
 		this.Background.setSize(BreakoutSettings.SCREEN_WIDTH, BreakoutSettings.SCREEN_HEIGHT);
 		this.Background.setPosition(0, 0);
+		this.WinTexture = new Sprite(new Texture("Textures/WinTexture.png"));
+		this.WinTexture.setSize(BreakoutSettings.SCREEN_WIDTH, BreakoutSettings.SCREEN_HEIGHT);
+		this.WinTexture.setPosition(0, 0);
+		this.LoseTexture = new Sprite(new Texture("Textures/LoseTexture.png"));
+		this.LoseTexture.setSize(BreakoutSettings.SCREEN_WIDTH, BreakoutSettings.SCREEN_HEIGHT);
+		this.LoseTexture.setPosition(0, 0);
 		
 		this.BallRender.init();
 		this.PlayerRender.init();
 		this.BrickRender.init();
-		//ALT INIT END
 		
 	}
 	
+	public void setEnd(boolean hasWon){
+		this.ended = true;
+		this.hasWon = hasWon;
+	}
+	
 	public void init(){
-
+		this.ended = false;
 	}
 	
 	public void setBalls(Array<Ball> balls){
@@ -71,6 +84,14 @@ public class MapRender {
 		this.BallRender.render(batch);
 		this.PlayerRender.render(batch);
 		this.powerupsRender.render(batch);
+		if(this.ended){
+			if(this.hasWon){
+				this.WinTexture.draw(batch);
+			}
+			else{
+				this.LoseTexture.draw(batch);
+			}
+		}
 	}
 
 	public void setInvurnerableBrick(Array<Brick> invulnerableBricks) {

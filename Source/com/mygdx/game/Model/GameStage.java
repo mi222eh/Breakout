@@ -46,8 +46,13 @@ public class GameStage implements MapListener, GameContactContactListener{
     private Pool<Powerup>InactivePowerups;
     public GameSoundListener soundListener;
     public BreakoutContactListener contactListener;
+    public boolean hasWon;
+    public boolean hasLost;
 
     public GameStage(){
+    	
+    	hasWon = false;
+    	hasLost = false;
     	
     	Ball.currentSpeed = BallSpeed.Normal;
     	
@@ -107,6 +112,8 @@ public class GameStage implements MapListener, GameContactContactListener{
     }
 
     public void init(){
+    	this.hasWon = false;
+    	this.hasLost = false;
     	this.started = false;
     	Ball.currentSpeed = BallSpeed.Normal;
     	player.init();
@@ -238,6 +245,16 @@ public class GameStage implements MapListener, GameContactContactListener{
     }
  
     public void update(float time){
+    	//Update WON
+    	hasWon = map.hasWon;
+    	
+    	//Check Lost
+    	if(!hasWon){
+    		if(Balls.size == 0){
+    			hasLost = true;
+    		}
+    	}
+    	
     	//STARTED CHECK
     	if(!this.started){
     		float playerX = this.player.getActiveBody().getPosition().x;
