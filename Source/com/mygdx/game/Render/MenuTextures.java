@@ -5,7 +5,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Model.MapCreateModel;
 
 public class MenuTextures {
-	public static Sprite MenuNormal1, MenuNormal2, MenuNormal3, MenuSteel1, MenuSteel2, MenuSteel3, MenuInvurnerable, MenuInvisible, Hover, Selected;
+	public static Sprite MenuNormal1, 
+	MenuNormal2, 
+	MenuNormal3, 
+	MenuSteel1, 
+	MenuSteel2, 
+	MenuSteel3, 
+	MenuInvurnerable, 
+	MenuInvisible, 
+	Hover, 
+	Selected;
 	
 	public static void loadTextures(){
 

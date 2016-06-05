@@ -49,13 +49,11 @@ public class GameScreen implements Screen{
     private boolean paused;
     private boolean hasEnded;
     private boolean hasWon;
-    private boolean changed;
     
     private TextButtonStyle style, inGameStyle;
     private Stage inGameStage, endStage, pauseStage;
 
     public GameScreen(BreakoutGame breakoutGame) {
-    	this.changed = false;
     	this.hasEnded = false;
     	this.hasWon = false;
     	this.paused = false;
@@ -144,9 +142,8 @@ public class GameScreen implements Screen{
     
     private void updateEnd(){
     	if(this.hasEnded){
-    		if(!this.changed){
+    		if(!this.paused){
     			mapRender.setEnd(hasWon);
-    			this.changed = true;
     			Gdx.input.setInputProcessor(endStage);
     		}
     	}
@@ -254,7 +251,6 @@ public class GameScreen implements Screen{
 
     @Override
     public void show() {
-    	this.changed = false;
     	this.hasEnded = false;
     	this.hasWon = false;
     	this.paused = false;
@@ -295,6 +291,9 @@ public class GameScreen implements Screen{
                 Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
                 mousePos = this.game.camera.unproject(mousePos);
                 this.gameStage.setPlayerPosition(mousePos.x);
+                if(Gdx.input.isButtonPressed(Buttons.LEFT)){
+                	this.gameStage.start();
+                }
                 
                 /*<-------------DEBUG BUTTONS------------------------->
                 if(Gdx.input.isKeyJustPressed(Keys.A)){
@@ -302,9 +301,6 @@ public class GameScreen implements Screen{
                 }
                 if(Gdx.input.isKeyJustPressed(Keys.D)){
                 	this.gameStage.MakePlayerSmaller();
-                }
-                if(Gdx.input.isButtonPressed(Buttons.LEFT)){
-                	this.gameStage.start();
                 }
                 if(Gdx.input.isKeyJustPressed(Keys.W)){
                 	this.gameStage.accelerateBalls();
